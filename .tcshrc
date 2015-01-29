@@ -70,12 +70,6 @@ if( ($?SSH_CLIENT && $?SSH_TTY) || !($?SSH_CLIENT || $?SSH_TTY) ) then
     # bc config
     setenv BC_ENV_ARGS ~/.bcrc
 
-    # added for Fink on MacOS
-    if (-r /sw/bin/init.csh) then
-        source /sw/bin/init.csh
-        append_path MANPATH /usr/local/man
-    endif
-    
     if ($HOSTTYPE == sun4) then
         setenv TERM vt100
         setenv PATH /usr/local/bin:/usr/local/sbin:/usr/ccs/bin:/usr/ucb:/bin:/usr/bin:/sbin:/usr/sbin
