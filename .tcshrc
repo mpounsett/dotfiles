@@ -1,0 +1,110 @@
+# vim:autoindent:expandtab:ts=4
+#
+set history="2000"
+set savehist=(2000 merge lock)
+set prompt="\n%n@%B%M%b:%~\n%P %# "
+
+setenv EDITOR vim
+setenv VISUAL vim
+setenv PAGER less
+setenv CVS_RSH ssh
+setenv PATH ~/bin:/usr/local/bin:/usr/local/sbin:/usr/sbin:/sbin:${PATH}
+
+# setup colour ls
+# default: exfxcxdxbxegedabagacad
+# ex : Directory             : blue/default
+# fx : Symlink               : magenta/default
+# cx : Socket                : green/default
+# dx : Pipe                  : brown/default
+# bx : Executable            : red/default
+# eg : block special         : blue/cyan
+# ed : character special     : blue/brown
+# ab : setuid executable     : black/red
+# ag : setgid executable     : black/cyan
+# ac : sticky writable dir   : black/green
+# ad : unsticky writable dir : black/brown
+
+setenv CLICOLOR
+setenv LSCOLORS cxfxExdxbxegedabagacad
+
+# and the tcsh internal colour stuff
+
+# 
+# no   0      Normal (non-filename) text
+# fi   0      Regular file
+# di   01;34  Directory
+# ln   01;36  Symbolic link
+# pi   33     Named pipe (FIFO)
+# so   01;35  Socket
+# do   01;35  Door
+# bd   01;33  Block device
+# cd   01;32  Character device
+# ex   01;32  Executable file
+# mi   (none) Missing file (defaults to fi)
+# or   (none) Orphaned symbolic  link  (defaults
+#             to ln)
+# lc   ^[[    Left code
+# rc   m      Right code
+# ec   (none) End code (replaces lc+no+rc)
+
+set color=ls-F
+setenv LS_COLORS "di=36:ln=35:so=32:pi=33:ex=31:bd=34;46:cd=34;43"
+
+unset autologout
+if (-f ~/.aliases.csh) then
+    source ~/.aliases.csh
+endif
+
+# If we've got facter, this is a puppet managed box.  Set some variables we
+# need for interacting with facter et. al.
+if( -f /usr/local/bin/facter ) then
+    setenv FACTERLIB /var/opt/lib/pe-puppet/lib:/var/puppet/lib/facter/
+endif
+
+# Are we interactive?
+if( ($?SSH_CLIENT && $?SSH_TTY) || !($?SSH_CLIENT || $?SSH_TTY) ) then
+    if (-r ~/.ssh/agent ) then
+        source ~/.ssh/agent
+    endif
+
+    # bc config
+    setenv BC_ENV_ARGS ~/.bcrc
+
+    # added for Fink on MacOS
+    if (-r /sw/bin/init.csh) then
+        source /sw/bin/init.csh
+        append_path MANPATH /usr/local/man
+    endif
+    
+    if ($HOSTTYPE == sun4) then
+        setenv TERM vt100
+        setenv PATH /usr/local/bin:/usr/local/sbin:/usr/ccs/bin:/usr/ucb:/bin:/usr/bin:/sbin:/usr/sbin
+    endif
+    
+    if ($OSTYPE == darwin) then
+
+        # Setting PATH for MacPython 2.6
+        # The orginal version is saved in .cshrc.pysave
+        set path=(/Library/Frameworks/Python.framework/Versions/2.6/bin $path)
+        
+        # Setting PATH for Python 2.7
+        # The orginal version is saved in .cshrc.pysave
+        set path=(/Library/Frameworks/Python.framework/Versions/2.7/bin $path)
+
+        if ( $?PERL5LIB ) then
+            prepend_path PERL5LIB /Users/matt/Library/Perl/lib/perl5/site_perl
+            prepend_path MANPATH /Users/matt/Library/Perl/share/man
+        else
+            setenv PERL5LIB /Users/matt/devel/perllib-CIRA/trunk/modules
+        endif
+        prepend_path PATH /opt/local/bin
+        prepend_path PATH /opt/local/sbin
+        prepend_path PATH ~/bin/wireshark
+        prepend_path PATH ~/bin
+        append_path PATH /Library/OpenBase/bin
+        stty erase 
+    endif
+    
+endif
+
+

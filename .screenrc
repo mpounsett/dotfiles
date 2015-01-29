@@ -1,0 +1,4 @@
+defscrollback 1000
+nethack on
+startup_message off
+vbell off
