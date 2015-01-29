@@ -1,7 +1,7 @@
 #!/usr/bin/env bash
 # vim:autoindent:expandtab:ts=4
 
-dotfiles='.aliases.csh .screenrc .tcshrc .vimrc'
+dotfiles='.aliases.csh .screenrc .tcshrc .vimrc .bcrc'
 pushd `dirname $0` > /dev/null
 linkdir=`pwd -L`
 popd > /dev/null
