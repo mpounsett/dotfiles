@@ -1,0 +1,11 @@
+#!/usr/bin/env bash
+# vim:autoindent:expandtab:ts=4
+
+dotfiles='.aliases.csh .screenrc .tcshrc .vimrc'
+pushd `dirname $0` > /dev/null
+linkdir=`pwd -L`
+popd > /dev/null
+
+for file in $dotfiles; do
+    ln -s $linkdir/$file ~/$file
+done
