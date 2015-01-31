@@ -4,11 +4,11 @@ set history="2000"
 set savehist=(2000 merge lock)
 set prompt="\n%n@%B%M%b:%~\n%P %# "
 
+setenv PATH ~/bin:/usr/local/bin:/usr/local/sbin:/usr/sbin:/sbin:${PATH}
 setenv EDITOR vim
 setenv VISUAL vim
 setenv PAGER less
 setenv CVS_RSH ssh
-setenv PATH ~/bin:/usr/local/bin:/usr/local/sbin:/usr/sbin:/sbin:${PATH}
 setenv BC_ENV_ARGS ~/.bcrc
 
 # setup colour ls
@@ -62,7 +62,8 @@ if( -f /usr/local/bin/facter ) then
     setenv FACTERLIB /var/opt/lib/pe-puppet/lib:/var/puppet/lib/facter/
 endif
 
-# Are we interactive?
+# Are we interactive?  This avoids non-interactive ssh sessions, such as
+# sshing in to run a single command, or running sftp.
 if( ($?SSH_CLIENT && $?SSH_TTY) || !($?SSH_CLIENT || $?SSH_TTY) ) then
     if (-r ~/.ssh/agent ) then
         source ~/.ssh/agent
@@ -96,7 +97,6 @@ if( ($?SSH_CLIENT && $?SSH_TTY) || !($?SSH_CLIENT || $?SSH_TTY) ) then
         append_path PATH /Library/OpenBase/bin
         stty erase 
     endif
-    
 endif
 
 
