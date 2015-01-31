@@ -9,6 +9,7 @@ setenv VISUAL vim
 setenv PAGER less
 setenv CVS_RSH ssh
 setenv PATH ~/bin:/usr/local/bin:/usr/local/sbin:/usr/sbin:/sbin:${PATH}
+setenv BC_ENV_ARGS ~/.bcrc
 
 # setup colour ls
 # default: exfxcxdxbxegedabagacad
@@ -66,9 +67,6 @@ if( ($?SSH_CLIENT && $?SSH_TTY) || !($?SSH_CLIENT || $?SSH_TTY) ) then
     if (-r ~/.ssh/agent ) then
         source ~/.ssh/agent
     endif
-
-    # bc config
-    setenv BC_ENV_ARGS ~/.bcrc
 
     if ($HOSTTYPE == sun4) then
         setenv TERM vt100
