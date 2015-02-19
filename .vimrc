@@ -29,6 +29,9 @@ if &term == "xterm"
     fixdel
 endif
 
+augroup filetype
+	au! BufRead,BufNewFile *.proto setfiletype proto
+augroup end
 
 colorscheme desert
 "colorscheme darkblue

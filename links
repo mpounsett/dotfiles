@@ -9,3 +9,6 @@ popd > /dev/null
 for file in $dotfiles; do
     ln -s $linkdir/$file ~/$file
 done
+
+mkdir -p ~/.vim/syntax
+ln -s $linkdir/proto.vim ~/.vim/syntax/proto.vim
