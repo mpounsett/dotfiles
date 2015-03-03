@@ -6,6 +6,12 @@ export HISTFILE=~/.history
 setopt HIST_EXPIRE_DUPS_FIRST
 setopt EXTENDED_HISTORY
 
+if [[ $OSTYPE =~ 'darwin.*' ]]; then
+    function connerize() { echo "$*" | sed "s/s/sh/g" }
+    function connerize-say() { echo "$*" | sed 's/s/sh/g' | say -v "Alex" -i -r 200 }
+fi
+
+
 # Setup the SSH agent
 ssh_agent_setup=0
 if [[ -f ~/.ssh/agent ]]; then
