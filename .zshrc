@@ -1,8 +1,10 @@
-# vim:autindent:expandtab:ts=4
+# vim:autoindent:expandtab:ts=4
 #
 export HISTSIZE=1000
 export SAVEHIST=4000
 export HISTFILE=~/.history
+setopt HIST_EXPIRE_DUPS_FIRST
+setopt EXTENDED_HISTORY
 
 # Setup the SSH agent
 ssh_agent_setup=0
@@ -40,3 +42,6 @@ export ZLS_COLOURS="di=36:ln=35:so=32:pi=33:ex=31:bd=34;46:cd=34;43"
 export CLICOLOR=true
 export LSCOLORS=gxfxExdxbxegedabagacad
 
+if [[ -f /usr/local/bin/virtualenvwrapper.sh ]]; then
+    source /usr/local/bin/virtualenvwrapper.sh
+fi
