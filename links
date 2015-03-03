@@ -7,8 +7,14 @@ linkdir=`pwd -L`
 popd > /dev/null
 
 for file in $dotfiles; do
-    ln -s $linkdir/$file ~/$file
+    if [[ ! -f ~/$file ]]; then
+        ln -s $linkdir/$file ~/$file
+    fi
 done
 
-mkdir -p ~/.vim/syntax
-ln -s $linkdir/proto.vim ~/.vim/syntax/proto.vim
+if [[ ! -d ~/.vim/syntax ]]; then
+    mkdir -p ~/.vim/syntax
+fi
+if [[ ! -f ~/.vim/syntax/proto.vim ]]; then
+    ln -s $linkdir/proto.vim ~/.vim/syntax/proto.vim
+fi
