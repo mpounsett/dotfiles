@@ -31,7 +31,10 @@ if [[ ssh_agent_setup -eq 0 ]]; then
     ssh-add ~/.ssh/conundrum_internal_rsa
 fi
 
-if [[ `echotc Co` -ge 8 ]]; then
+python_inc=`python -c 'import site; print site.getsitepackages()[0]'`
+if [[ -f "${python_inc}/powerline/bindings/zsh/powerline.zsh" ]]; then
+    . "${python_inc}/powerline/bindings/zsh/powerline.zsh"
+elif [[ `echotc Co` -ge 8 ]]; then
 	# there are 8 or more colours to work with
 	PS1=$'\n%B%n%b@%B%F{green}%M%f%b:%F{cyan}%~%f\n%B%F{yellow}%*%f%b (%h) %# '
 else
