@@ -1,15 +1,18 @@
 # vim:autoindent:expandtab:ts=4
 #
-PATH="~/bin:/usr/local/bin:/usr/local/sbin:/usr/sbin:/sbin:${PATH}"
-EDITOR=vim
-VISUAL=vim
+export EDITOR=vim
+export VISUAL=vim
+export BC_ENV_ARGS=~/.bcrc
 
-if [[ `echotc Co` -ge 8 ]]; then
-	# there are 8 or more colours to work with
-	PS1=$'\n%B%n%b@%B%F{green}%M%f%b:%F{cyan}%~%f\n%B%F{yellow}%*%f%b (%h) %# '
-else
-	PS1=$'\n%B%n%b@%B%M%b:%~\n%B%*%b (%h) %# '
+if [[ $OSTYPE =~ 'darwin.*' ]]; then
+    path=(/Library/Frameworks/Python.framework/Versions/2.7/bin $path)
+    export PATH
 fi
+path=(~/bin /usr/local/bin /usr/local/sbin /usr/sbin /sbin $path)
+export PATH
 
-bindkey '\Ep' history-beginning-search-backward
-bindkey '\En' history-beginning-search-forward
+# If we've got facter, this is a puppet managed box.  Set some variables we
+# need for interacting with facter et. al.
+if [[ -f /usr/local/bin/facter ]]; then
+    export FACTERLIB=/var/opt/lib/pe-puppet/lib:/var/puppet/lib/facter/
+fi
