@@ -3,7 +3,7 @@
 # ahead/behind the dotfiles repo is.  But only for a recent enough version of
 # git.
 #
-if [[ `git --version | cut -d" " -f3` > 1.9 ]]; then
+if [[ `git --version | cut -d" " -f3 | cut -d"." -f1-2` -le 1.9 ]]; then
 	if [[ `uname` == 'Linux' ]]; then
 		stat=(stat -c "%Y")
 	else
