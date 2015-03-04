@@ -13,25 +13,27 @@ fi
 
 
 # Setup the SSH agent
-ssh_agent_setup=0
-if [[ -f ~/.ssh/agent ]]; then
-    source ~/.ssh/agent
-fi
-if [[ -n "$SSH_AGENT_PID" ]]; then
-    kill -0 $SSH_AGENT_PID >& /dev/null
-    if [[ $? -eq 0 ]]; then
-        ssh_agent_setup=1
+if [[ -z "$SSH_TTY" ]]; then
+    ssh_agent_setup=0
+    if [[ -f ~/.ssh/agent ]]; then
+        source ~/.ssh/agent
+    fi
+    if [[ -n "$SSH_AGENT_PID" ]]; then
+        kill -0 $SSH_AGENT_PID >& /dev/null
+        if [[ $? -eq 0 ]]; then
+            ssh_agent_setup=1
+        fi
+    fi
+    if [[ ssh_agent_setup -eq 0 ]]; then
+        ssh-agent > ~/.ssh/agent
+        cat ~/.ssh/agent
+        source ~/.ssh/agent
+        ssh-add ~/.ssh/rightside_rsa
+        ssh-add ~/.ssh/conundrum_internal_rsa
     fi
 fi
-if [[ ssh_agent_setup -eq 0 ]]; then
-    ssh-agent > ~/.ssh/agent
-    cat ~/.ssh/agent
-    source ~/.ssh/agent
-    ssh-add ~/.ssh/rightside_rsa
-    ssh-add ~/.ssh/conundrum_internal_rsa
-fi
 
-python_inc=`python -c 'import site; print site.getsitepackages()[0]'`
+python_inc=`python -c 'import site; print site.getsitepackages()[0]'`>&/dev/null
 if [[ -f "${python_inc}/powerline/bindings/zsh/powerline.zsh" ]]; then
     . "${python_inc}/powerline/bindings/zsh/powerline.zsh"
 elif [[ `echotc Co` -ge 8 ]]; then
