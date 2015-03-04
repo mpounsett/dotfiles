@@ -5,6 +5,7 @@ export SAVEHIST=4000
 export HISTFILE=~/.history
 setopt HIST_EXPIRE_DUPS_FIRST
 setopt EXTENDED_HISTORY
+setopt INC_APPEND_HISTORY
 
 if [[ $OSTYPE =~ 'darwin.*' ]]; then
     function connerize() { echo "$*" | sed "s/s/sh/g" }
