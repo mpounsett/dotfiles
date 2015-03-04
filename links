@@ -22,6 +22,6 @@ fi
 if [[ ! -d ~/.config/powerline/themes/shell/ ]]; then
     mkdir -p ~/.config/powerline/themes/shell/ 
 fi
-if [[ ! -f ~/.config/powerline/themes/shell/config.json ]]; then
+if [[ ! -f ~/.config/powerline/themes/shell/default.json ]]; then
     ln -s $linkdir/default.json ~/.config/powerline/themes/shell/default.json
 fi
