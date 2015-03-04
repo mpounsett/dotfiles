@@ -35,14 +35,22 @@ if [[ -z "$SSH_TTY" ]]; then
     fi
 fi
 
-python_inc=`python -c 'import site; print site.getsitepackages()[0]'`>&/dev/null
-if [[ -f "${python_inc}/powerline/bindings/zsh/powerline.zsh" ]]; then
-    . "${python_inc}/powerline/bindings/zsh/powerline.zsh"
-elif [[ `echotc Co` -ge 8 ]]; then
-	# there are 8 or more colours to work with
-	PS1=$'\n%B%n%b@%B%F{green}%M%f%b:%F{cyan}%~%f\n%B%F{yellow}%*%f%b (%h) %# '
-else
-	PS1=$'\n%B%n%b@%B%M%b:%~\n%B%*%b (%h) %# '
+python_inc=(`python -c 'import site; print " ".join(site.getsitepackages())'`)>&/dev/null
+powerline_setup=0
+for py_path in $python_inc; do
+    if [[ -f "${py_path}/powerline/bindings/zsh/powerline.zsh" ]]; then
+        powerline_setup=1
+        . "${py_path}/powerline/bindings/zsh/powerline.zsh"
+        break
+    fi
+done
+if [[ $powerline_setup -eq 0 ]]; then
+    if [[ `echotc Co` -ge 8 ]]; then
+	    # there are 8 or more colours to work with
+	    PS1=$'\n%B%n%b@%B%F{green}%M%f%b:%F{cyan}%~%f\n%B%F{yellow}%*%f%b (%h) %# '
+    else
+	    PS1=$'\n%B%n%b@%B%M%b:%~\n%B%*%b (%h) %# '
+    fi
 fi
 
 bindkey '\Ep' history-beginning-search-backward
