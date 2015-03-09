@@ -18,6 +18,13 @@ fi
 if [[ ! -f ~/.vim/syntax/proto.vim ]]; then
     ln -s $linkdir/proto.vim ~/.vim/syntax/proto.vim
 fi
+if [[ ! -d ~/.vim/ftplugin ]]; then
+    mkdir -p ~/.vim/ftplugin
+fi
+if [[ ! -f ~/.vim/ftplugin/python.vim ]]; then
+    ln -s $linkdir/python.vim.ftplugin ~/.vim/ftplugin/python.vim
+fi
+
 
 if [[ ! -d ~/.config/powerline/themes/shell/ ]]; then
     mkdir -p ~/.config/powerline/themes/shell/ 
