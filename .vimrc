@@ -1,4 +1,5 @@
 :version 6.1
+set encoding=utf-8
 set tw=78
 set nobk
 set showmode
@@ -29,6 +30,8 @@ if &term == "xterm"
     fixdel
 endif
 
+filetype plugin indent on
+
 augroup filetype
 	au! BufRead,BufNewFile *.proto setfiletype proto
 augroup end
@@ -44,9 +47,6 @@ colorscheme desert
 "     hi Statement term=bold ctermfg=Brown gui=bold guifg=Brown
 "     hi PreProc  term=underline ctermfg=Magenta guifg=Purple
 "     hi Type     term=underline ctermfg=DarkGreen guifg=SeaGreen gui=bold
-
-filetype plugin indent on
-
 
 map _ddate	i\section{:r!date +"\%A, \%B \%d, \%Y --- \%H:\%M}"<CR>kJxj
 map _sig	:r!~mattp/bin/gensig<CR>
