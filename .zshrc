@@ -39,7 +39,7 @@ python_inc=(`python -c 'import site; print " ".join(site.getsitepackages())'`)>&
 powerline_setup=0
 for py_path in $python_inc; do
     if [[ -f "${py_path}/powerline/bindings/zsh/powerline.zsh" ]]; then
-        powerline-daemon -q
+        #powerline-daemon -q
         . "${py_path}/powerline/bindings/zsh/powerline.zsh"
         powerline_setup=1
         break
