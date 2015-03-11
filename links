@@ -33,11 +33,11 @@ if [[ ! -f ~/.config/powerline/themes/shell/default.json ]]; then
     ln -s $linkdir/default.json ~/.config/powerline/themes/shell/default.json
 fi
 
-ipython=`which ipython`
-if [[ -n $ipython && ! -d ~/.ipython ]]; then
-    ipython profile create
+ipython=`which ipython` >& /dev/null
+if [[ -x $ipython && ! -d ~/.ipython ]]; then
+    ${ipython} profile create
 fi
-if [[ -n $ipython ]]; then 
+if [[ -x $ipython ]]; then 
     if [[ -f ~/.ipython/profile_default/ipython_config.py ]]; then
         rm ~/.ipython/profile_default/ipython_config.py 
     fi
