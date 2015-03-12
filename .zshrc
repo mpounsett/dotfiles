@@ -2,7 +2,7 @@
 #
 export HISTSIZE=1000
 export SAVEHIST=4000
-export HISTFILE=~/.history
+export HISTFILE=~/.zsh_history
 setopt EXTENDED_HISTORY
 setopt INC_APPEND_HISTORY
 setopt HIST_EXPIRE_DUPS_FIRST
