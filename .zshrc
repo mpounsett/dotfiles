@@ -7,6 +7,7 @@ setopt EXTENDED_HISTORY
 setopt INC_APPEND_HISTORY
 setopt HIST_EXPIRE_DUPS_FIRST
 setopt HIST_REDUCE_BLANKS
+setopt PROMPT_SUBST
 
 if [[ $OSTYPE =~ 'darwin.*' ]]; then
     function connerize() { echo "$*" | sed "s/s/sh/g" }
@@ -35,6 +36,27 @@ if [[ -z "$SSH_TTY" ]]; then
     fi
 fi
 
+git_prompt() {
+    git branch > /dev/null 2>&1
+    if [[ $? -eq 0 ]]; then
+        # we're in a git branch
+        branch=`git branch 2> /dev/null | cut -d" " -f2`
+        git status | grep "nothing to commit" > /dev/null 2>&1
+        if [[ $? -eq 0 ]]; then
+            # clean repository
+            colour='green'
+            sep=('[' ']')
+        else
+            # stuff to commit
+            colour='red'
+            sep=('{' '}')
+        fi
+        printf " %%F{$colour}$sep[1]$branch$sep[2]%%f"
+    else
+        # not in a git repo
+    fi
+}
+
 python_inc=(`python -c 'import site; print " ".join(site.getsitepackages())'`)>&/dev/null
 powerline_setup=0
 for py_path in $python_inc; do
@@ -48,9 +70,9 @@ done
 if [[ $powerline_setup -eq 0 ]]; then
     if [[ `echotc Co` -ge 8 ]]; then
 	    # there are 8 or more colours to work with
-	    PS1=$'\n%B%n%b@%B%F{green}%M%f%b:%F{cyan}%~%f\n%B%F{yellow}%*%f%b (%h) %# '
+        PS1=$'\n%B%n%b@%B%F{green}%M%f%b:%F{cyan}%~%f\n%B%F{yellow}%*%f%b$(git_prompt) (%h) %# '
     else
-	    PS1=$'\n%B%n%b@%B%M%b:%~\n%B%*%b (%h) %# '
+        PS1=$'\n%B%n%b@%B%M%b:%~\n%B%*%b$(git_prompt) (%h) %# '
     fi
 fi
 
