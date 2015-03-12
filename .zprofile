@@ -15,7 +15,7 @@ if [[ `git --version | cut -d" " -f3 | cut -d"." -f1-2` -ge 1.9 ]]; then
 	now=`date +'%s'`
 	echo -n "dotfiles: "
 	if [[ $(( $last + 86400 )) -lt $now ]]; then
-		git fetch
+		git fetch > /dev/null 2>&1
 	fi
 	git for-each-ref refs/heads --format='%(refname:short) %(upstream:track)'
 	popd -q
