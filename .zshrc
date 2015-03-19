@@ -13,6 +13,8 @@ if [[ $OSTYPE =~ 'darwin.*' ]]; then
     function connerize() { echo "$*" | sed "s/s/sh/g" }
     function connerize-say() { echo "$*" | sed 's/s/sh/g' | say -v "Alex" -i -r 200 }
 fi
+# downloading files with the proper output file name for sites that don't
+# implement Content-Disposition.
 fncurl () {
     fn=`curl -sI "$@" | grep 'location:' | awk -F/ '{print $NF}' | sed 's/\r//'`
     curl -o $fn -L $@
