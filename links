@@ -12,18 +12,22 @@ for file in $dotfiles; do
     fi
 done
 
-if [[ ! -d ~/.vim/syntax ]]; then
-    mkdir -p ~/.vim/syntax
-fi
-if [[ ! -f ~/.vim/syntax/proto.vim ]]; then
-    ln -s $linkdir/proto.vim ~/.vim/syntax/proto.vim
-fi
-if [[ ! -d ~/.vim/ftplugin ]]; then
-    mkdir -p ~/.vim/ftplugin
-fi
-if [[ ! -f ~/.vim/ftplugin/python.vim ]]; then
-    ln -s $linkdir/python.vim.ftplugin ~/.vim/ftplugin/python.vim
-fi
+
+vimsrcdirs=(`find ${linkdir}/.vim  -type d`)
+vimdestdirs=(`echo $vimsrcdirs | sed "s|${linkdir}/*||g"`)
+for dir in $vimdestdirs; do
+    if [[ ! -d ~/$dir ]]; then
+        mkdir -p ~/${dir}
+    fi
+done
+
+vimfiles=(`find $vimsrcdirs -maxdepth 1 -mindepth 1 -type f`)
+for src in $vimfiles; do
+    dest=`echo $src | sed "s|${linkdir}/*||g"`
+    if [[ ! -f ~/$dest ]]; then
+        ln -s $src ~/$dest
+    fi
+done
 
 
 if [[ ! -d ~/.config/powerline/themes/shell/ ]]; then
