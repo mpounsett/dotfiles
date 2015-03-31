@@ -36,6 +36,9 @@ augroup filetype
 	au! BufRead,BufNewFile *.proto setfiletype proto
 augroup end
 
+au BufNewFile,BufRead *.eyaml setfiletype yaml
+
+
 colorscheme desert
 "colorscheme darkblue
 " hi Comment  term=bold ctermfg=darkgreen guifg=darkgreen
