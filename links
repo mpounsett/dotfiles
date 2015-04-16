@@ -29,13 +29,21 @@ for src in $vimfiles; do
     fi
 done
 
+cfgsrcdirs=(`find ${linkdir}/.config -type d`)
+cfgdestdirs=(`echo $cfgsrcdirs | sed "s|${linkdir}/*||g"`)
+for dir in $cfgdestdirs; do
+    if [[ ! -d ~/$dir ]]; then
+        mkdir -p ~/${dir}
+    fi
+done
 
-if [[ ! -d ~/.config/powerline/themes/shell/ ]]; then
-    mkdir -p ~/.config/powerline/themes/shell/ 
-fi
-if [[ ! -f ~/.config/powerline/themes/shell/default.json ]]; then
-    ln -s $linkdir/default.json ~/.config/powerline/themes/shell/default.json
-fi
+cfgfiles=(`find $cfgsrcdirs -maxdepth 1 -mindepth 1 -type f`)
+for src in $cfgfiles; do
+    dest=`echo $src | sed "s|${linkdir}/*||g"`
+    if [[ ! -f ~/$dest ]]; then
+        ln -s $src ~/$dest
+    fi
+done
 
 ipython=`which ipython` >& /dev/null
 if [[ -x $ipython && ! -d ~/.ipython ]]; then
