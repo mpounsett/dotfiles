@@ -1,4 +1,21 @@
 :version 6.1
+
+if !1 | finish | endif
+
+if has('vim_starting')
+	if &compatible
+		set nocompatible
+	endif
+
+	set runtimepath+=~/.vim/bundle/neobundle.vim/
+endif
+
+call neobundle#begin(expand('~/.vim/bundle/'))
+NeoBundleFetch 'Shougo/neobundle.vim'
+
+call neobundle#end()
+NeoBundleCheck
+
 set encoding=utf-8
 set tw=78
 set nobk
@@ -55,18 +72,3 @@ map _ddate	i\section{:r!date +"\%A, \%B \%d, \%Y --- \%H:\%M}"<CR>kJxj
 map _sig	:r!~mattp/bin/gensig<CR>
 map _spell	:!ispell -S %<cr>:e %<cr>
 
-if !1 | finish | endif
-
-if has('vim_starting')
-	if &compatible
-		set nocompatible
-	endif
-
-	set runtimepath+=~/.vim/bundle/neobundle.vim/
-endif
-
-call neobundle#begin(expand('~/.vim/bundle/'))
-NeoBundleFetch 'Shougo/neobundle.vim'
-
-call neobundle#end()
-NeoBundleCheck
