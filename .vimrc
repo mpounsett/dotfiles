@@ -12,6 +12,7 @@ endif
 
 call neobundle#begin(expand('~/.vim/bundle/'))
 NeoBundleFetch 'Shougo/neobundle.vim'
+NeoBundle 'fatih/vim-go'
 
 call neobundle#end()
 NeoBundleCheck
