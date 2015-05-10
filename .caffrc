@@ -47,7 +47,7 @@ $CONFIG{'local-user'} = [ qw{3ADE21DA559A3BE3 7E719F1B79088852} ];
 #{$owner}
 #EOM
 
-$CONFIG{'ask-sign'} = 1;
+$CONFIG{'ask-sign'} = 0;
 $CONFIG{'mail'} = 'yes';
-$CONFIG{'mailer-send'} = [ 'smtp', Server => 'mail.conundrum.com', Auth => ['matt', 'a+Gi!m3b'] ];
+#$CONFIG{'mailer-send'} = [ 'smtp', Server => 'mail.conundrum.com', Auth => ['matt', 'a+Gi!m3b'] ];
 $CONFIG{'gpg'} = '/usr/local/MacGPG2/bin/gpg2';
