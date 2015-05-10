@@ -1,7 +1,7 @@
 #!/usr/bin/env zsh
 # vim:autoindent:expandtab:ts=4
 
-dotfiles=(.aliases.csh .screenrc .tcshrc .vimrc .bcrc .zshenv .zshrc .zprofile)
+dotfiles=(.aliases.csh .caffrc .screenrc .tcshrc .vimrc .bcrc .zshenv .zshrc .zprofile)
 pushd `dirname $0` > /dev/null
 linkdir=`pwd -L`
 popd > /dev/null
