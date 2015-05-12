@@ -3,11 +3,20 @@
 export HISTSIZE=1000
 export SAVEHIST=4000
 export HISTFILE=~/.zsh_history
+
 setopt EXTENDED_HISTORY
 setopt INC_APPEND_HISTORY
 setopt HIST_EXPIRE_DUPS_FIRST
 setopt HIST_REDUCE_BLANKS
 setopt PROMPT_SUBST
+
+for dir in ~/Development ~/devel; do
+    if [[ -d $dir ]]; then
+        export GOROOT=$dir/go
+        break
+    fi
+done
+
 
 if [[ $OSTYPE =~ 'darwin.*' ]]; then
     function connerize() { echo "$*" | sed "s/s/sh/g" }
