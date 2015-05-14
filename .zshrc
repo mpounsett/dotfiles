@@ -12,7 +12,7 @@ setopt PROMPT_SUBST
 
 for dir in ~/Development ~/devel; do
     if [[ -d $dir ]]; then
-        export GOROOT=$dir/go
+        export GOPATH=$dir/go
         break
     fi
 done
