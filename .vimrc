@@ -13,9 +13,12 @@ endif
 call neobundle#begin(expand('~/.vim/bundle/'))
 NeoBundleFetch 'Shougo/neobundle.vim'
 NeoBundle 'fatih/vim-go'
+NeoBundle 'andviro/flake8-vim'
 
 call neobundle#end()
 NeoBundleCheck
+
+let g:PyFlakeOnWrite = 1
 
 set encoding=utf-8
 set tw=78
