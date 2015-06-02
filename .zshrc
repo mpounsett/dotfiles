@@ -22,6 +22,7 @@ if [[ $OSTYPE =~ 'darwin.*' ]]; then
     function connerize() { echo "$*" | sed "s/s/sh/g" }
     function connerize-say() { echo "$*" | sed 's/s/sh/g' | say -v "Alex" -i -r 200 }
 fi
+
 # downloading files with the proper output file name for sites that don't
 # implement Content-Disposition.
 fncurl () {
@@ -29,6 +30,8 @@ fncurl () {
     curl -o $fn -L $@
 }
 
+# Force ls to colour mode all the time
+alias ls='ls --color'
 
 # Setup the SSH agent
 if [[ -z "$SSH_TTY" ]]; then
@@ -103,7 +106,8 @@ bindkey '\En' history-beginning-search-forward
 # ls and completion colours
 #
 zmodload zsh/complist
-export ZLS_COLOURS="di=36:ln=35:so=32:pi=33:ex=31:bd=34;46:cd=34;43"
+export ZLS_COLORS="di=36:ln=35:so=32:pi=33:ex=31:bd=34;46:cd=34;43"
+export LS_COLORS="di=36:ln=35:so=32:pi=33:ex=31:bd=34;46:cd=34;43"
 export CLICOLOR=true
 export LSCOLORS=gxfxExdxbxegedabagacad
 
