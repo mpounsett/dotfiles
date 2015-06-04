@@ -11,6 +11,14 @@ fi
 path=(~/bin /usr/local/go/bin /usr/local/bin /usr/local/sbin /usr/sbin /sbin $path)
 export PATH
 
+for dir in ~/Development ~/devel; do
+    if [[ -d $dir ]]; then
+        export GOPATH=$dir/go
+        path=($GOPATH/bin $path)
+        break
+    fi
+done
+
 # If we've got facter, this is a puppet managed box.  Set some variables we
 # need for interacting with facter et. al.
 if [[ -f /usr/local/bin/facter ]]; then

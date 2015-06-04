@@ -10,13 +10,6 @@ setopt HIST_EXPIRE_DUPS_FIRST
 setopt HIST_REDUCE_BLANKS
 setopt PROMPT_SUBST
 
-for dir in ~/Development ~/devel; do
-    if [[ -d $dir ]]; then
-        export GOPATH=$dir/go
-        break
-    fi
-done
-
 
 if [[ $OSTYPE =~ 'darwin.*' ]]; then
     function connerize() { echo "$*" | sed "s/s/sh/g" }
