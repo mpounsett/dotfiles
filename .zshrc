@@ -24,7 +24,11 @@ fncurl () {
 }
 
 # Force ls to colour mode all the time
-alias ls='ls --color'
+if [[ $OSTYPE =~ 'darwin.*' ]]; then
+    alias ls='ls -G'
+else
+    alias ls='ls --color'
+fi
 
 # Setup the SSH agent
 if [[ -z "$SSH_TTY" ]]; then
