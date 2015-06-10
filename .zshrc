@@ -26,6 +26,8 @@ fncurl () {
 # Force ls to colour mode all the time
 if [[ $OSTYPE =~ 'darwin.*' ]]; then
     alias ls='ls -G'
+elif [[ :$OSTYPE =~ 'freebsd.*' ]]; then
+    alias ls='ls -G'
 else
     alias ls='ls --color'
 fi
