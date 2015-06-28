@@ -19,6 +19,10 @@ for dir in ~/Development ~/devel; do
     fi
 done
 
+if [[ -d /Users/matthewpounsett/Library/Python/2.7/bin ]]; then
+    path=($path /Users/matthewpounsett/Library/Python/2.7/bin)
+fi
+
 # If we've got facter, this is a puppet managed box.  Set some variables we
 # need for interacting with facter et. al.
 if [[ -f /usr/local/bin/facter ]]; then
