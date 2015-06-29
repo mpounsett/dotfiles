@@ -83,9 +83,10 @@ git_prompt() {
 python_inc=(`python -c 'import site; print " ".join(site.getsitepackages())'`)>&/dev/null
 powerline_setup=0
 for py_path in $python_inc; do
-    if [[ -f "${py_path}/powerline/bindings/zsh/powerline.zsh" ]]; then
+    pline_zsh="${py_path}/powerline/bindings/zsh/powerline.zsh"
+    if [[ -f "${pline_zsh}" ]]; then
         #powerline-daemon -q
-        . "${py_path}/powerline/bindings/zsh/powerline.zsh"
+        . "${pline_zsh}"
         powerline_setup=1
         break
     fi
