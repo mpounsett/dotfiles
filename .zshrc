@@ -111,6 +111,9 @@ export LS_COLORS="di=36:ln=35:so=32:pi=33:ex=31:bd=34;46:cd=34;43"
 export CLICOLOR=true
 export LSCOLORS=gxfxExdxbxegedabagacad
 
-if [[ -f /usr/local/bin/virtualenvwrapper.sh ]]; then
-    source /usr/local/bin/virtualenvwrapper.sh
-fi
+for f in /usr/local/bin/virtualenvwrapper.sh /usr/bin/virtualenvwrapper.sh; do
+    if [[ -f $f ]]; then
+        source $f
+        break
+    fi
+done
