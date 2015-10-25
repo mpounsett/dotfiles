@@ -9,6 +9,7 @@ popd > /dev/null
 
 for file in $dotfiles; do
     ln -fs $linkdir/$file ~/$file
+done
 
 vimsrcdirs=(`find ${linkdir}/.vim  -type d`)
 vimdestdirs=(`echo $vimsrcdirs | sed "s|${linkdir}/*||g"`)
