@@ -63,7 +63,7 @@ git_prompt() {
     git branch > /dev/null 2>&1
     if [[ $? -eq 0 ]]; then
         # we're in a git branch
-        branch=`git branch 2> /dev/null | cut -d" " -f2`
+        branch=`git branch 2> /dev/null | cut -d" " -f2 | tr -d '\n' `
         git status | grep "nothing to commit" > /dev/null 2>&1
         if [[ $? -eq 0 ]]; then
             # clean repository
