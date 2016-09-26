@@ -1,0 +1,17 @@
+window name RODEO chan #goatrodeo hold off scroll on logfile logs/IRC.bofh.goatrodeo.log log on shrink 7
+window new name CRAP hold off scroll on logfile logs/IRC.bofh.SYSTEM.log log on shrink 20 level CRAP,OPNOTES,SNOTES,WALLOPS
+window new name MSGs hold off scroll on logfile logs/IRC.bofh.MSGS.log log on shrink 10 level CTCP,ACTIONS,MSGS,NOTICSE,WALLS
+
+window refnum 1
+
+load defaults
+load aliases-efnet
+load bindings
+load cursor
+load ignores
+load notify
+load ops
+load opmode
+load screen
+load tabkey
+load triggers

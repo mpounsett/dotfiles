@@ -1,0 +1,101 @@
+# AutoOp   by Ian Frechette 12-10-92 
+# Written for ircII2.2pre8 and beyond
+
+# initial list of trusted chan ops..
+# format is   nickname!username@hostname   wildcards can be used in 
+# any of the three fields
+# in the following list the first name would autoop anyone with the 
+# nickname 'example_nick'
+# the second example will autoop anyone with the username
+# 'bob' coming from any machine in the .nocolorado.edu domain
+
+@cop_list = [*!matt@*io.org]
+# People will only be opped on the following channels..  
+# wildcards are allowed and thus just * means every channel.  Use
+# delchan to remove stuff from the list, addchan to add
+
+@cchan_list = [#CISV]
+
+# Show the the people currently in the autoop list
+alias showcisvop
+{
+    @ cao.tmp = 0
+    @ cao.name = []
+    echo *** AutoOp list.  AddCISVop nick!user@host to add.  DelCISVop <num>  to remove
+    echo *** <num> nickname!username@hostname 
+    while (cao.name = word($cao.tmp $cop_list)) {
+        echo *** $[5]cao.tmp $cao.name
+        @cao.tmp = cao.tmp + 1
+    }
+}
+
+# Just like showop but works with channels.
+alias showcisvchan
+{
+    @ cao.tmp = 0
+    @ cao.name = []
+    echo *** AutoOp chan list.  AddCISVchan #channel add.  DelCISVchan <num>  to remove
+    echo *** <num> #channel
+    while (cao.name = word($cao.tmp $cchan_list)) {
+        echo *** $[5]cao.tmp $cao.name
+        @cao.tmp = cao.tmp + 1
+    }
+}
+
+# Given a number.. deletes that person from the autoop list.. 
+# use SHOWCISVOP to list.
+alias delcisvop {
+    if (!rmatch($0. *1* *2* *3* *4* *5* *6* *7* *8* *9* *0*))
+        { echo *** Usage: delcisvop <number>;echo *** See showcisvop }
+        { @ cop_list = notword(${[$0] + 1} $cop_list) }
+}
+    
+# Given a number.. deletes that channel from the autoop channel list.. 
+# use SHOWCISVCHAN to list.
+alias delcisvchan {
+    if (!rmatch($0. *1* *2* *3* *4* *5* *6* *7* *8* *9* *0*))
+        { echo *** Usage: delcisvchan <number>;echo *** See showcisvchan }
+        { @ cchan_list = notword(${[$0] + 1} $cchan_list) }
+}
+
+# Add an autochanop to the list.
+alias addcisvop {
+    if ([$0])
+    { @ cop_list = cop_list ## [ $0] }
+    { echo *** Usage addcisvop nick!username@host;echo *** wildcards are allowed }
+}
+
+# Add an autochanop channel to the list.
+alias addcisvchan {
+    if ([$0])
+    { @ cchan_list = cchan_list ## [ $0] }
+    { echo *** Usage addcisvchan #channel;echo *** wildcards are allowed }
+}
+
+# the actual ON that does the work
+on #-join 666 * {
+    if (rmatch($1 $cchan_list))
+    {
+	if (rmatch($0!$userhost() $cop_list))
+	    { timer 2 if \(!ischanop\($0 $1\)\) \{ //mode $1 +o $0 \} }
+    }
+}
+
+# The perfect complement to the $word() function.  
+# $notword(index words)  returns words minus the indexed word. 
+# the special handling of nw.sep is to deal with the cases when 
+# the index points to the first or last word.
+alias notword {
+    if ([$0] > 0)
+    {
+    if (([$0] > 1) && ([$0] < rmatch($~ $1-)))
+        { @ nw.sep = [ ] }
+        { @ nw.sep = [] }
+        
+    @ function_return = [$(1-${[$0]-1})] ## [$nw.sep] ## [$(${[$0]+1}-)]
+    }
+    {
+        @ function_return = [$1-]
+    }
+}
+

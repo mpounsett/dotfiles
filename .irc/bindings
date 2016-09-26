@@ -1,0 +1,4 @@
+bind ^B self_insert
+bind ^V self_insert
+bind ^_ self_insert
+bind ^Z stop_irc

@@ -1,0 +1,28 @@
+alias back nick Succorso;away
+
+alias w whois $0
+alias ww whowas $0
+alias hold window hold_mode toggle
+
+alias crap window refnum CRAP
+alias msgs window refnum MSGS
+alias goat window refnum GOATRODEO
+
+alias resize {
+	window balance
+	window push
+	window refnum crap
+	window shrink 2
+	window refnum msgs
+	window shrink 7
+	window pop
+}
+
+alias cleanup {
+	window push
+	window refnum crap
+	clear
+	window refnum msgs
+	clear
+	window pop
+}

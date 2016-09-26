@@ -1,0 +1,19 @@
+window name CISV hold off scroll on logfile T3.logs/IRC.cisv.log log on chan #CISV
+window new name CRAP hold off scroll on level CRAP,OPNOTES,SNOTES,WALLOPS shrink 15
+window new name MSGs hold off scroll on level CTCP,ACTIONS,MSGS,NOTICES,WALLS shrink 7
+window refnum CISV
+
+load defaults
+
+load aliases
+load bindings
+load cursor
+load ignores
+load notify
+load ops
+load opmode
+load screen
+load tabkey
+load triggers
+
+mode Succorso +i

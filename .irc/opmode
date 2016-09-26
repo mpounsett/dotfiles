@@ -1,0 +1,52 @@
+
+alias kb kban
+alias ub uban
+
+alias kban {
+  if ( [$0] )
+     {
+      @him=[$0]
+      @comment=[$1-]
+      userhost $him -cmd kban1 $$0 $$3 $$4 $comment
+      } {mode $C +b}
+  }
+
+alias uban {
+  if ( [$0] )
+     {
+      @him=[$0]
+      userhost $him -cmd uban1 $$0 $$3 $$4
+      } {mode $C -b}
+  }
+
+alias kban1 {
+  if ( [$1] == [<UNKNOWN>] )
+     {echo *** No such nickname} {kban2 $0 $1 $2 $3-}
+  }
+
+alias uban1 {
+  if ( [$1] == [<UNKNOWN>] )
+     {echo *** No such nickname} {uban2 $0 $1 $2}
+  }
+
+alias kban2 {
+  @nic=[$0]
+  @usr=strip(# $1) 
+  @mach=[$2]
+  @comment=[$3-]
+  ^alias enleve @ FUNCTION_RETURN = [$MID($INDEX("." [$2]) 99 $2)]
+  @machine=[*.$enleve($2)]
+  //mode $C +b *!$mid(0 8 $usr)@$machine
+  //kick $C $nic $comment
+}
+
+alias uban2 {
+  @nic=[$0]
+  @usr=strip(#~ $1) 
+  @mach=[$2]
+  ^alias enleve @ FUNCTION_RETURN = [$MID($INDEX("." [$2]) 99 $2)]
+  @machine=[*.$enleve($2)]
+  //mode $C -b *!$mid(0 8 $usr)@$machine
+}
+
+

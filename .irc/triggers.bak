@@ -1,0 +1,24 @@
+# Change the notification output when someone signs on.
+#
+on ^NOTIFY_SIGNON * ECHO [$stime($time())] Signon by $0 detected
+on ^NOTIFY_SIGNOFF * ECHO [$stime($time())] Signoff by $0 detected
+on ^CHANNEL_SIGNOFF * ECHO [$stime($time())] Signoff: $1 on $0 \($2-\)
+
+
+# Server notices n' other important stuff
+#
+on ^SERVER_NOTICE * ECHO [$stime($time())] $1 $2-
+# on ^WHO * ECHO [$Z] $1 is $3@$4 ($5-)\n[$Z] 
+
+
+# Timestamp all public and private messages and actions
+#
+on ^PUBLIC * ECHO [$Z] <$0> $2-
+on ^ACTION * ECHO [$Z] * $0 $2-
+on ^MSG * ECHO [$Z] *$0* $1-
+on ^SEND_PUBLIC * ECHO [$Z] > $1-
+on ^SEND_ACTION * if ( ischannel($0) ) { ECHO [$Z] * $N $1- } { ECHO [$Z] -> $0: $N $1- }
+on ^SEND_MSG * ECHO [$Z] -> *$0* $1-
+
+on ^NOTICE * ECHO [$Z] -$0\- $1-
+on ^SEND_NOTICE * ECHO [$Z] -> -$0\- $1-

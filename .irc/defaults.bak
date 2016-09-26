@@ -1,0 +1,16 @@
+set auto_whowas off
+set clock on
+set clock_24hour on
+set -continued_line
+set indent on
+set input_prompt $T>
+set insert_mode on
+set lastlog 1024
+set lastlog_level all
+set mail 0
+set notify_handler noisy
+set novice off
+set scroll on
+set show_away_once on
+set show_channel_names on
+set verbose_ctcp on

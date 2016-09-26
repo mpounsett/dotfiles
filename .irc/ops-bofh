@@ -1,0 +1,11 @@
+load auto-op
+
+addchan #netcom.ca
+
+addop *!*@conundrum.com
+addop *!*@*.conundrum.com
+addop *!~taob@*.nbc.netcom.ca
+addop *!~dacole@*.nbc.netcom.ca
+addop *!catness@*.blank.org
+addop *!catness@apocalypse.org
+addop *!tomr@*.aceldama.com

@@ -1,0 +1,192 @@
+echo *** split.irc loaded.
+echo *** Type /shelp for help.
+
+^assign -serverlist1
+^assign -serverlist2
+^assign -serverlist3
+^assign -servers
+@ servercount = 0
+
+^alias getservers {
+echo *** Generating server list.
+^exec rm server.list
+^assign serverlist1 N
+^assign serverlist2 N
+@ servercount = 0
+^assign -servers
+^on ^raw_irc "% 364 *" {
+  ^eval ^exec echo "loadserversub $3" >> server.list
+  @ servercount = servercount + 1
+  ^assign servers[${servercount-1}] $3 No
+  if ([$servercount] < [100]) {
+    ^assign serverlist1 $serverlist1 $3
+    }
+    {
+    ^assign serverlist2 $serverlist2 $3
+    }
+  }
+^on ^raw_irc "% 365 *" {
+  echo *** Server list generated.  $servercount servers found.
+  }
+links
+wait
+^on raw_irc -"% 364 *"
+^on raw_irc -"% 365 *"
+}
+
+^alias loadserversub {
+@ servercount = servercount + 1
+if ([$servercount] < [100]) {
+  ^assign serverlist1 $serverlist1 $0
+  }
+  {
+  ^assign serverlist2 $serverlist2 $0
+  }
+^assign servers[${servercount-1}] $0 No
+}
+
+^alias loadservers {
+echo *** Loading server list.
+@ servercount = 0
+^assign serverlist1 N
+^assign serverlist2 N
+^assign -servers
+load server.list
+wait -cmd echo *** $servercount servers loaded.
+}
+
+^alias servers {
+echo *** There are $servercount servers in memory.
+}
+
+
+^alias setserver {
+if ([$match($0 $serverlist1)] != [0]) {
+  ^assign servers[${match($0 $serverlist1) -2}] $0 $1
+  }
+  {
+  if ([$match($0 $serverlist2)] != [0]) {
+  ^assign servers[${match($0 $serverlist2) +97}] $0 $1
+  }
+  {
+  @ servercount = servercount + 1
+  ^assign servers[${servercount-1}] $0 New
+  if ([$servercount] < [100]) {
+    ^assign serverlist1 $serverlist1 $0
+    }
+    {
+    ^assign serverlist2 $serverlist2 $0
+    }
+  ^eval ^exec echo "loadserversub $0" >> server.list
+  }
+}
+^assign -ssx
+}
+
+
+^alias findsplit {
+if ([$servercount] < [1]) {
+echo *** You need to either create a new server list, or load an old one.
+}
+{
+
+echo *** Generating list of splits...
+@ splitsfound = 0
+^on ^raw_irc "% 364 *" {
+  setserver $3 Yes
+  }
+^on ^raw_irc "% 365 *" {
+  ^on raw_irc -"% 364 *"
+  ^on raw_irc -"% 365 *"
+  }
+@ sx = 0
+while ([$sx] < [$servercount]) {
+  @ sx = sx + 1
+  setserver $word(0 $servers[${sx -1}]) No
+  }
+wait 
+links
+wait
+  @ sx = 0
+  @ splitcount = 0
+  while ([$sx] < [$servercount]) {
+    @ sx = sx + 1
+    ^assign workwith $word(1 $servers[${sx-1}])
+    if ([$workwith]==[NO]) {
+      echo *** Split: $word(0 $servers[${sx-1}])
+      @ splitcount = splitcount + 1 
+      }
+      {
+    if ([$workwith]==[NEW]) {
+      echo ***   New: $word(0 $servers[${sx-1}])
+      }
+    }
+  }
+wait
+if ([$splitcount] > 0) {
+  echo *** $splitcount split servers found.
+  }
+  { 
+  echo *** No split servers found.
+  }
+^assign -sx
+}
+}
+
+^alias shelp {
+echo *** -----------------------------------------------------
+echo *** /loadservers     Load serverlist into memory
+echo *** /getservers      Generate serverlist
+echo *** /findsplit       Generate a list of split servers
+echo *** /servers         Show how many servers are in memory
+echo *** /splitunload     Unload script
+echo *** /aboutsplit      About information for this script
+echo *** /instructions    Basic instructions on use.
+echo *** ------------------------------------------------------
+}
+
+^alias aboutsplit {
+echo *** ----------------------------
+echo *** split.irc v0.2
+echo *** by maitai@eskimo.com
+echo *** ----------------------------
+}
+
+^alias instructions {
+echo *** ---------------------------------------------------------
+echo ***  Use /getservers to get a list of currently connected
+echo ***  servers, this will create a file called server.list
+echo ***  in your present working directory.  I recommend you
+echo ***  do this at a time when you know that the network is
+echo ***  fairly stable otherwise, the script miss splits that
+echo ***  are around, because it doesn't know the server exists.
+echo ***
+echo ***  To avoid spending time generating new server lists,
+echo ***  user /loadservers to load your previously made server
+echo ***  list file.  The script will automatically add new
+echo ***  servers it finds that are not in its list whenever you
+echo ***  user /findsplit.
+echo ***
+echo ***  Use /findsplit to list all splits (based on your
+echo ***  server list), add new servers to your list, etc.
+echo *** ---------------------------------------------------------
+}
+
+
+
+^alias splitunload {
+echo *** Unloading split.irc
+^alias -shelp
+^assign -servers
+^alias -loadserversub
+^alias -loadservers
+^alias -findsplit
+^alias -splitunload
+^alias -setserver
+^alias -getservers
+^alias -instructions
+^alias -aboutsplit
+^assign -serverlist
+^assign -servers
+^assign -servercount
+}

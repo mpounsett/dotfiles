@@ -1,0 +1,30 @@
+server -delete 0
+server irc.srh.org:6667::Icon
+#server 67.215.196.37:6667:9aqzx3MeuchVcDso:Icon
+nick Icon
+set realname Icon O'Plasty
+window name SRH chan #SRH hold off scroll on logfile log/IRC.srh.log log on shrink 7
+#window name SRH hold off scroll on logfile log/IRC.srh.log log on shrink 7
+window new name CRAP hold off scroll on logfile log/IRC.SYSTEM.log log on shrink 10 level CRAP,OPNOTES,SNOTES,WALLOPS
+window new name MSGs hold off scroll on logfile log/IRC.msgs.log log on shrink 20 level CTCP,ACTIONS,MSGS,NOTICSE,WALLS
+window refnum SRH
+window new name MARKLAR chan #MARKLAR hold off scroll on logfile log/IRC.marklar.log log on hide
+window new name KAYLEE chan #KAYLEE hold off scroll on hide
+
+load defaults
+
+load aliases-efnet
+load bindings
+load cursor
+load ignores
+load notify
+load ops
+load opmode
+load screen
+load tabkey
+load triggers
+
+resize
+
+mode Icon +i
+

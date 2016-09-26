@@ -1,0 +1,16 @@
+window new name CRAP hold off scroll on shrink 20 level CRAP,OPNOTES,SNOTES,WALLOPS
+window new name MSGs hold off scroll on shrink 10 level CTCP,ACTIONS,MSGS,NOTICSE,WALLS
+
+window refnum 1
+
+load defaults
+load aliases-efnet
+load bindings
+load cursor
+load ignores
+load notify
+load ops
+load opmode
+load screen
+load tabkey
+load triggers

@@ -1,0 +1,6 @@
+set send_ignore_msg OFF
+
+ignore * +INVITES +WALLOPS +MSGS
+
+ignore bdb@*.gts.net ALL
+ignore bdb@*.gts.org ALL

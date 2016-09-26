@@ -1,0 +1,10 @@
+load auto-op
+
+addchan #marklar
+addchan #srh
+
+addop *!*@conundrum.com
+addop *!*@*.conundrum.com
+addop *!tomr@*.aceldama.com
+addop *!~vanessa@*.eicat.ca
+addop *!vanessa@*.eicat.ca
