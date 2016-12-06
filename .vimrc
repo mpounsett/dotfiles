@@ -14,6 +14,7 @@ call neobundle#begin(expand('~/.vim/bundle/'))
 NeoBundleFetch 'Shougo/neobundle.vim'
 NeoBundle 'fatih/vim-go'
 NeoBundle 'nvie/vim-flake8'
+NeoBundle 'ekalinin/Dockerfile.vim'
 
 call neobundle#end()
 NeoBundleCheck
