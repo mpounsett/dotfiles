@@ -57,8 +57,10 @@ augroup filetype
 	au! BufRead,BufNewFile *.proto setfiletype proto
 augroup end
 
-au BufNewFile,BufRead *.eyaml setfiletype yaml
-
+augroup filetype
+	au BufNewFile,BufRead *.eyaml setfiletype yaml
+	set autoindent
+augroup end
 
 colorscheme desert
 "colorscheme darkblue
