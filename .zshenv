@@ -4,6 +4,10 @@ export EDITOR=vim
 export VISUAL=vim
 export BC_ENV_ARGS=~/.bcrc
 
+if [[ -d ~/bin ]]; then
+    path=(~/bin $path)
+fi
+
 if [[ $OSTYPE =~ 'darwin.*' ]]; then
     path=(/Library/Frameworks/Python.framework/Versions/2.7/bin $path)
     export PATH
