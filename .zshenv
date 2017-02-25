@@ -4,6 +4,14 @@ export EDITOR=vim
 export VISUAL=vim
 export BC_ENV_ARGS=~/.bcrc
 
+if [[ -d /usr/local/go/bin ]]; then
+    path=(/usr/local/go/bin $path)
+fi
+
+if [[ -d ~/bin/bind ]]; then
+    path=(~/bin/bind/bin ~/bin/bind/sbin $path)
+fi
+
 if [[ -d ~/bin ]]; then
     path=(~/bin $path)
 fi
@@ -12,7 +20,7 @@ if [[ $OSTYPE =~ 'darwin.*' ]]; then
     path=(/Library/Frameworks/Python.framework/Versions/2.7/bin $path)
     export PATH
 fi
-path=(~/bin ~/bin/bind/bin ~/bin/bind/sbin /usr/local/go/bin /usr/local/bin /usr/local/sbin /usr/sbin /sbin $path)
+path=(/usr/local/bin /usr/local/sbin /usr/sbin /sbin $path)
 export PATH
 
 for dir in ~/Development ~/devel; do
