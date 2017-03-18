@@ -15,6 +15,7 @@ NeoBundleFetch 'Shougo/neobundle.vim'
 NeoBundle 'fatih/vim-go'
 NeoBundle 'nvie/vim-flake8'
 NeoBundle 'ekalinin/Dockerfile.vim'
+NeoBundle 'toyamarinyon/vim-swift'
 
 call neobundle#end()
 NeoBundleCheck
