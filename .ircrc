@@ -8,7 +8,7 @@ window name SRH chan #SRH hold off scroll on logfile log/IRC.srh.log log on shri
 window new name CRAP hold off scroll on logfile log/IRC.SYSTEM.log log on shrink 10 level CRAP,OPNOTES,SNOTES,WALLOPS
 window new name MSGs hold off scroll on logfile log/IRC.msgs.log log on shrink 20 level CTCP,ACTIONS,MSGS,NOTICSE,WALLS
 window refnum SRH
-window new name MARKLAR chan #MARKLAR hold off scroll on logfile log/IRC.marklar.log log on hide
+# window new name MARKLAR chan #MARKLAR hold off scroll on logfile log/IRC.marklar.log log on hide
 window new name KAYLEE chan #KAYLEE hold off scroll on hide
 
 load defaults
