@@ -4,6 +4,10 @@ export EDITOR=vim
 export VISUAL=vim
 export BC_ENV_ARGS=~/.bcrc
 
+if [[ $OSTYPE =~ 'darwin.*' ]]; then
+    export LANG en_CA.UTF-8
+fi
+
 path=(/usr/local/bin /usr/local/sbin /usr/sbin /sbin $path)
 export PATH
 
