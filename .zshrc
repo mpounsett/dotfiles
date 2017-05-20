@@ -53,7 +53,8 @@ if [[ -z "$SSH_TTY" ]]; then
         fi
         if [[ -f ~/.ssh/conundrum_internal_rsa ]]; then
             ssh-add ~/.ssh/conundrum_internal_rsa
-        elif [[ -f ~/.ssh/conundrum_external_rsa ]]; then
+        fi
+        if [[ -f ~/.ssh/conundrum_external_rsa ]]; then
             ssh-add ~/.ssh/conundrum_external_rsa
         fi
     fi
