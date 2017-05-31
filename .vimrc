@@ -64,6 +64,11 @@ augroup filetype
 	set autoindent
 augroup end
 
+augroup filetype
+	au BufNewFile,BufRead *.sls setfiletype yaml
+	set autoindent
+augroup end
+
 colorscheme desert
 "colorscheme darkblue
 " hi Comment  term=bold ctermfg=darkgreen guifg=darkgreen
