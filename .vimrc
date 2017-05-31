@@ -80,3 +80,7 @@ map _ddate	i\section{:r!date +"\%A, \%B \%d, \%Y --- \%H:\%M}"<CR>kJxj
 map _sig	:r!~mattp/bin/gensig<CR>
 map _spell	:!ispell -S %<cr>:e %<cr>
 
+python from powerline.vim import setup as powerline_setup
+python powerline_setup()
+python del powerline_setup
+
