@@ -1,0 +1,4 @@
+# vim:ft=gitconfig
+[user]
+	name = Matthew Pounsett
+	email = matt.pounsett@rightside.co

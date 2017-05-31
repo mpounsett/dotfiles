@@ -1,0 +1,6 @@
+[user]
+	name = Matthew Pounsett
+	email = matt@conundrum.com
+
+[includeIf "gitdir:~/devel/rightside/"]
+	path = .gitconfig-rightside
