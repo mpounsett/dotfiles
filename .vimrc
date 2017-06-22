@@ -1,4 +1,4 @@
-:version 6.1
+:version 8.0
 
 if !1 | finish | endif
 
@@ -57,18 +57,13 @@ filetype plugin indent on
 augroup filetype
     au!
     au BufRead,BufNewFile *.proto   setfiletype proto
+    au BufNewFile,BufRead *.eyaml   setfiletype yaml
+    au BufNewFile,BufRead *.sls     setfiletype yaml
 
     au BufWritePost *.py call Flake8()
 
-    au FileType vim
-        \ set expandtab
-
-    au FileType yaml
-        \ set ts=2
-        \ set w=2
-        \ set autoindent
-    au BufNewFile,BufRead *.eyaml   setfiletype yaml
-    au BufNewFile,BufRead *.sls     setfiletype yaml
+    au FileType vim     set expandtab
+    au FileType yaml    set ts=2 tw=2 autoindent
 augroup end
 
 
