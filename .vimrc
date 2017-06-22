@@ -3,11 +3,11 @@
 if !1 | finish | endif
 
 if has('vim_starting')
-	if &compatible
-		set nocompatible
-	endif
+    if &compatible
+        set nocompatible
+    endif
 
-	set runtimepath+=~/.vim/bundle/neobundle.vim/
+    set runtimepath+=~/.vim/bundle/neobundle.vim/
 endif
 
 call neobundle#begin(expand('~/.vim/bundle/'))
@@ -19,8 +19,6 @@ NeoBundle 'toyamarinyon/vim-swift'
 
 call neobundle#end()
 NeoBundleCheck
-
-autocmd BufWritePost *.py call Flake8()
 
 set encoding=utf-8
 set tw=78
@@ -43,6 +41,7 @@ set bg=dark
 set modeline
 set modelines=4
 syntax enable
+colorscheme desert
 
 if &term == "xterm-color"
     set t_kb=
@@ -56,36 +55,33 @@ endif
 filetype plugin indent on
 
 augroup filetype
-	au! BufRead,BufNewFile *.proto setfiletype proto
+    au!
+    au BufRead,BufNewFile *.proto   setfiletype proto
+
+    au BufWritePost *.py call Flake8()
+
+    au FileType vim
+        \ set expandtab
+
+    au FileType yaml
+        \ set ts=2
+        \ set w=2
+        \ set autoindent
+    au BufNewFile,BufRead *.eyaml   setfiletype yaml
+    au BufNewFile,BufRead *.sls     setfiletype yaml
 augroup end
 
-augroup filetype
-	au BufNewFile,BufRead *.eyaml setfiletype yaml
-	set autoindent
-augroup end
 
-augroup filetype
-	au BufNewFile,BufRead *.sls setfiletype yaml
-	set autoindent
-augroup end
+map _ddate  i\section{:r!date +"\%A, \%B \%d, \%Y --- \%H:\%M}"<CR>kJxj
+map _sig    :r!~mattp/bin/gensig<CR>
+map _spell  :!ispell -S %<cr>:e %<cr>
 
-colorscheme desert
-"colorscheme darkblue
-" hi Comment  term=bold ctermfg=darkgreen guifg=darkgreen
-" syn region texZone	start="\\begin{command}"		end="\\end{command}\|%stopzone\>"
-" syn region texZone	start="\\begin{response}"		end="\\end{response}\|%stopzone\>"
-"     hi Constant term=underline ctermfg=Magenta guifg=Magenta
-"     hi Special  term=bold ctermfg=LightRed guifg=SlateBlue
-"     hi Identifier term=underline ctermfg=DarkCyan guifg=DarkCyan
-"     hi Statement term=bold ctermfg=Brown gui=bold guifg=Brown
-"     hi PreProc  term=underline ctermfg=Magenta guifg=Purple
-"     hi Type     term=underline ctermfg=DarkGreen guifg=SeaGreen gui=bold
-
-map _ddate	i\section{:r!date +"\%A, \%B \%d, \%Y --- \%H:\%M}"<CR>kJxj
-map _sig	:r!~mattp/bin/gensig<CR>
-map _spell	:!ispell -S %<cr>:e %<cr>
-
-python from powerline.vim import setup as powerline_setup
-python powerline_setup()
-python del powerline_setup
-
+"load powerline when it's available
+py << EOF
+try:
+    from powerline.vim import setup as powerline_setup
+    powerline_setup()
+    del powerline_setup
+except ImportError:
+    pass
+EOF
