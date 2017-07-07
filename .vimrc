@@ -40,6 +40,7 @@ set nowrapscan
 set bg=dark
 set modeline
 set modelines=4
+set formatoptions-=l
 syntax enable
 colorscheme desert
 
