@@ -118,3 +118,5 @@ for f in /usr/local/bin/virtualenvwrapper.sh /usr/bin/virtualenvwrapper.sh; do
         break
     fi
 done
+
+test -e "${HOME}/.iterm2_shell_integration.zsh" && source "${HOME}/.iterm2_shell_integration.zsh"
