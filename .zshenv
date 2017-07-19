@@ -23,13 +23,10 @@ if [[ -d ~/bin ]]; then
     path=(~/bin $path)
 fi
 
-for dir in ~/Development ~/devel; do
-    if [[ -d $dir ]]; then
-        export GOPATH=$dir/go
-        path=($GOPATH/bin $path)
-        break
-    fi
-done
+if [[ -d ~/devel/conundrum/go ]]; then
+    export GOPATH=~/devel/conundrum/go
+    path=($GOPATH/bin $path)
+fi
 
 if [[ -d /Users/matthewpounsett/Library/Python/2.7/bin ]]; then
     path=($path /Users/matthewpounsett/Library/Python/2.7/bin)
