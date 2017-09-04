@@ -64,7 +64,7 @@ augroup filetype
     au BufWritePost *.py call Flake8()
 
     au FileType vim         set expandtab
-    au FileType yaml        set ts=2 tw=2 autoindent
+    au FileType yaml        set ts=2 sw=2 autoindent
     au FileType markdown    set formatoptions+=l tw=0 linebreak
 augroup end
 
