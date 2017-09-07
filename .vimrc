@@ -60,6 +60,7 @@ augroup filetype
     au BufRead,BufNewFile *.proto   setfiletype proto
     au BufNewFile,BufRead *.eyaml   setfiletype yaml
     au BufNewFile,BufRead *.sls     setfiletype yaml
+    au BufNewFile,BufRead *.j2      setfiletype jinja
 
     au BufWritePost *.py call Flake8()
 
