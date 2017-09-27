@@ -59,6 +59,8 @@ augroup filetype
     au!
     au BufRead,BufNewFile *.proto   setfiletype proto
     au BufNewFile,BufRead *.eyaml   setfiletype yaml
+    au BufNewFile,BufRead *.j2      setfiletype jinja
+    au BufNewFile,BufRead *.jinja   setfiletype jinja
     au BufNewFile,BufRead *.sls     setfiletype yaml
     au BufNewFile,BufRead *.j2      setfiletype jinja
 
