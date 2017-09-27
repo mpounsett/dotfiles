@@ -11,6 +11,17 @@ for file in $dotfiles; do
     ln -fs $linkdir/$file ~/$file
 done
 
+# secure files
+# Some files can't be symlinks.. copy them
+dotfiles=(.login_conf)
+pushd `dirname $0` > /dev/null
+linkdir=`pwd -L`
+popd > /dev/null
+
+for file in $dotfiles; do
+    cp -f $linkdir/$file ~/$file
+done
+
 vimsrcdirs=(`find ${linkdir}/.vim  -type d`)
 vimdestdirs=(`echo $vimsrcdirs | sed "s|${linkdir}/*||g"`)
 for dir in $vimdestdirs; do
