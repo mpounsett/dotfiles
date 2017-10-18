@@ -77,6 +77,7 @@ map _sig    :r!~mattp/bin/gensig<CR>
 map _spell  :!ispell -S %<cr>:e %<cr>
 
 "load powerline when it's available
+if has('python')
 py << EOF
 try:
     from powerline.vim import setup as powerline_setup
@@ -85,3 +86,13 @@ try:
 except ImportError:
     pass
 EOF
+elseif has('python3')
+py3 << EOF
+try:
+    from powerline.vim import setup as powerline_setup
+    powerline_setup()
+    del powerline_setup
+except ImportError:
+    pass
+EOF
+endif
