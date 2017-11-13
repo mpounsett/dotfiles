@@ -35,6 +35,11 @@ if [[ -d /Users/matthewpounsett/Library/Python/2.7/bin ]]; then
     path=($path /Users/matthewpounsett/Library/Python/2.7/bin)
 fi
 
+# Set up manpath for GPG on MacOS
+if [[ -d /usr/local/MacGPG2/ ]]; then
+    manpath=($manpath /usr/local/MacGPG2/share/man)
+fi
+
 # If we've got facter, this is a puppet managed box.  Set some variables we
 # need for interacting with facter et. al.
 if [[ -f /usr/local/bin/facter ]]; then
