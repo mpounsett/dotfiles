@@ -41,7 +41,10 @@ if [[ -z "$SSH_TTY" ]]; then
     if [[ -n "$SSH_AGENT_PID" ]]; then
         kill -0 $SSH_AGENT_PID >& /dev/null
         if [[ $? -eq 0 ]]; then
-            ssh_agent_setup=1
+            pid_comm=`ps -p $SSH_AGENT_PID -o comm | tail -1`
+            if [[ $pid_comm =~ 'ssh-agent$' ]]; then
+                ssh_agent_setup=1
+            fi
         fi
     fi
     if [[ ssh_agent_setup -eq 0 ]]; then
