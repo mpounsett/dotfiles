@@ -2,5 +2,8 @@
 	name = Matthew Pounsett
 	email = matt@conundrum.com
 
+[includeIf "gitdir:~/devel/nimbus/"]
+	path = .gitconfig-nimbus
+
 [includeIf "gitdir:~/devel/rightside/"]
 	path = .gitconfig-rightside
