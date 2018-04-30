@@ -31,9 +31,6 @@ for dir in ~/Development ~/devel; do
     fi
 done
 
-if [[ -d /Users/matthewpounsett/Library/Python/2.7/bin ]]; then
-    path=($path /Users/matthewpounsett/Library/Python/2.7/bin)
-fi
 
 # Set up manpath for GPG on MacOS
 if [[ -d /usr/local/MacGPG2/ ]]; then
@@ -45,5 +42,3 @@ fi
 if [[ -f /usr/local/bin/facter ]]; then
     export FACTERLIB=/var/opt/lib/pe-puppet/lib:/var/puppet/lib/facter/
 fi
-
-
