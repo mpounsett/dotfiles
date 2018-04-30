@@ -92,18 +92,37 @@ git_prompt() {
     fi
 }
 
-python_inc=(`python -c 'import site; print " ".join(site.getsitepackages())'`)>&/dev/null
-powerline_setup=0
-for py_path in $python_inc; do
-    pline_zsh="${py_path}/powerline/bindings/zsh/powerline.zsh"
-    if [[ -f "${pline_zsh}" ]]; then
-        #powerline-daemon -q
-        . "${pline_zsh}"
-        powerline_setup=1
-        break
+# Setting up Powerline-Status
+#
+# First, let's see if powerline is installed in a pyenv
+pline_zsh=""
+if [[ -n `whence pyenv` ]]; then
+    powerline_loc=`pyenv which powerline`
+    if [[ $? -eq 0 ]]; then
+        # We've got a location for powerline.. strip of bin/powerline and that
+        # gives us a path we can start looking in for powerline.zsh
+        pyenv_path=${powerline_loc%"bin/powerline"}
+        pline_zsh=`find $pyenv_path -name powerline.zsh`
     fi
-done
-if [[ $powerline_setup -eq 0 ]]; then
+else
+    # pyenv isn't installed, or it is installed and doesn't have powerline in
+    # any of its venvs.  Let's see if the default python can find it.
+    python_inc=(`python -c 'import site; print(" ".join(site.getsitepackages()))'`)>&/dev/null
+    for py_path in $python_inc; do
+        check_path=`find $py_path -name powerline.zsh`
+        if [[ -n $check_path ]]; then
+            pline_zsh=$check_path
+        fi
+    done
+fi
+
+if [[ ! -v NOPOWERLINE && -f "${pline_zsh}" ]]; then
+    # powerline-daemon found to be slow and crashy
+    # powerline-daemon -q
+    . "${pline_zsh}"
+else
+    # We don't have powerline.  Set up a custom shell prompt.
+    #
     if [[ `echotc Co` -ge 8 ]]; then
 	    # there are 8 or more colours to work with
         PS1=$'\n%B%n%b@%B%F{green}%M%f%b:%F{cyan}%~%f\n%B%F{yellow}%*%f%b$(git_prompt) (%h) %# '
