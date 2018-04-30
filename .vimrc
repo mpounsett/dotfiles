@@ -68,7 +68,7 @@ augroup filetype
 
     au FileType vim         set expandtab
     au FileType yaml        set ts=2 sw=2 autoindent
-    au FileType markdown    set formatoptions+=l tw=0 linebreak
+    au FileType markdown    set formatoptions-=l linebreak expandtab autoindent
 augroup end
 
 
