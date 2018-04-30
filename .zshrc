@@ -63,6 +63,14 @@ if [[ -z "$SSH_TTY" ]]; then
     fi
 fi
 
+# pyenv/virtualenv setup
+if [[ -x /usr/local/bin/pyenv ]]; then
+    export WORKON_HOME=~/.ve
+    export PROJECT_HOME=~/devel
+    eval "$(pyenv init -)"
+    pyenv virtualenvwrapper_lazy
+fi
+
 git_prompt() {
     git branch > /dev/null 2>&1
     if [[ $? -eq 0 ]]; then
