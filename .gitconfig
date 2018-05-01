@@ -6,4 +6,4 @@
 	path = .gitconfig-nimbus
 
 [includeIf "gitdir:~/devel/rightside/"]
-	path = .gitconfig-rightside
+	path = .gitconfig-nimbus
