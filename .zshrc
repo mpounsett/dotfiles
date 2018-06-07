@@ -112,9 +112,11 @@ else
     # any of its venvs.  Let's see if the default python can find it.
     python_inc=(`python -c 'import site; print(" ".join(site.getsitepackages()))'`)>&/dev/null
     for py_path in $python_inc; do
-        check_path=`find $py_path -name powerline.zsh`
-        if [[ -n $check_path ]]; then
-            pline_zsh=$check_path
+        if [[ -d py_path ]]; then
+            check_path=`find $py_path -name powerline.zsh`
+            if [[ -n $check_path ]]; then
+                pline_zsh=$check_path
+            fi
         fi
     done
 fi
