@@ -67,9 +67,15 @@ if [[ -z "$SSH_TTY" ]]; then
 fi
 
 # pyenv/virtualenv setup
-if [[ -x /usr/local/bin/pyenv ]]; then
+if [[ -x "${HOME}/.pyenv/bin/pyenv" ]]; then
+    export PYENV_ROOT="${HOME}/.pyenv"
+    path=(${PYENV_ROOT}/bin $path)
+fi
+
+if [[ -n `whence pyenv` ]]; then
     export WORKON_HOME=~/.ve
     export PROJECT_HOME=~/devel
+    export PYENV_VIRTUALENV_DISABLE_PROMPT=1
     eval "$(pyenv init -)"
     pyenv virtualenvwrapper_lazy
 fi
@@ -105,7 +111,7 @@ if [[ -n `whence pyenv` ]]; then
         # We've got a location for powerline.. strip of bin/powerline and that
         # gives us a path we can start looking in for powerline.zsh
         pyenv_path=${powerline_loc%"bin/powerline"}
-        pline_zsh=`find $pyenv_path -name powerline.zsh`
+        pline_zsh=`find $pyenv_path -name powerline.zsh 2>&/dev/null`
     fi
 else
     # pyenv isn't installed, or it is installed and doesn't have powerline in
