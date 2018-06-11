@@ -7,3 +7,5 @@
 
 [includeIf "gitdir:~/devel/rightside/"]
 	path = .gitconfig-nimbus
+[push]
+	default = simple
