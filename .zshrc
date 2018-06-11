@@ -127,7 +127,7 @@ else
     done
 fi
 
-if [[ ! -v NOPOWERLINE && -f "${pline_zsh}" ]]; then
+if [[ $NOPOWERLINE != "" && -f "${pline_zsh}" ]]; then
     # powerline-daemon found to be slow and crashy
     # powerline-daemon -q
     . "${pline_zsh}"

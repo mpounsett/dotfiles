@@ -20,6 +20,8 @@ NeoBundle 'toyamarinyon/vim-swift'
 call neobundle#end()
 NeoBundleCheck
 
+let g:go_version_warning=0
+
 set encoding=utf-8
 set tw=78
 set nobk
