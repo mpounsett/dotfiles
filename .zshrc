@@ -108,10 +108,7 @@ pline_zsh=""
 if [[ -n `whence pyenv` ]]; then
     powerline_loc=`pyenv which powerline`
     if [[ $? -eq 0 ]]; then
-        # We've got a location for powerline.. strip of bin/powerline and that
-        # gives us a path we can start looking in for powerline.zsh
-        pyenv_path=${powerline_loc%"bin/powerline"}
-        pline_zsh=`find $pyenv_path -name powerline.zsh 2>&/dev/null`
+        pline_zsh=`find $HOME/.pyenv -name powerline.zsh 2>&/dev/null`
     fi
 else
     # pyenv isn't installed, or it is installed and doesn't have powerline in
@@ -127,10 +124,10 @@ else
     done
 fi
 
-if [[ $NOPOWERLINE != "" && -f "${pline_zsh}" ]]; then
+if [[ $NOPOWERLINE == "" && -f "${pline_zsh}" ]]; then
     # powerline-daemon found to be slow and crashy
     # powerline-daemon -q
-    . "${pline_zsh}"
+    . ${pline_zsh}
 else
     # We don't have powerline.  Set up a custom shell prompt.
     #
