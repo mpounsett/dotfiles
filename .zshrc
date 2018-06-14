@@ -67,7 +67,6 @@ if [[ -z "$SSH_TTY" ]]; then
             ssh-add ~/.ssh/oarc
         fi
     fi
-    fi
 fi
 
 # pyenv/virtualenv setup
