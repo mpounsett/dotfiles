@@ -3,6 +3,7 @@
 export EDITOR=vim
 export VISUAL=vim
 export BC_ENV_ARGS=~/.bcrc
+export MAILCHECK=0
 
 if [[ $OSTYPE =~ 'darwin.*' ]]; then
     export LANG=en_CA.UTF-8
