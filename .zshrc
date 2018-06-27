@@ -109,7 +109,7 @@ git_prompt() {
 # First, let's see if powerline is installed in a pyenv
 pline_zsh=""
 if [[ -n `whence pyenv` ]]; then
-    powerline_loc=`pyenv which powerline`
+    powerline_loc=`pyenv which powerline 2>&/dev/null`
     if [[ $? -eq 0 ]]; then
         pline_zsh=`find $HOME/.pyenv -name powerline.zsh 2>&/dev/null`
     fi
