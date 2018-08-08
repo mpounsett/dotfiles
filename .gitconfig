@@ -2,10 +2,17 @@
 	name = Matthew Pounsett
 	email = matt@conundrum.com
 
+## This whole InclueIf thing doesn't work on most Linuxes because git is too
+## far out of date in most Linux distributions.  Go figure.
+##
 [includeIf "gitdir:~/devel/nimbus/"]
 	path = .gitconfig-nimbus
 
 [includeIf "gitdir:~/devel/rightside/"]
 	path = .gitconfig-nimbus
+
+[includeIf "gitdir:~/devel/oarc/"]
+	path = .gitconfig-nimbus
+
 [push]
 	default = simple
