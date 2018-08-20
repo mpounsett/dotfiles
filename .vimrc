@@ -70,6 +70,7 @@ augroup filetype
 
     au FileType vim         set expandtab
     au FileType yaml        set ts=2 sw=2 autoindent
+    au FileType html        set ts=3 sw=3 autoindent expandtab
     au FileType markdown    set formatoptions-=l linebreak expandtab autoindent
     au FileType rst         set formatoptions-=l linebreak expandtab autoindent
 augroup end
