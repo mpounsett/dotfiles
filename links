@@ -2,7 +2,7 @@
 # vim:autoindent:expandtab:ts=4
 
 
-dotfiles=(.aliases.csh .bcrc .gitconfig .gitconfig-nimbus .ircrc .iterm2_shell_integration.zsh .minirc.switch .pypirc .screenrc .tcshrc .vimrc .xvimrc .zprofile .zshenv .zshrc)
+dotfiles=(.aliases.csh .bcrc .gitconfig .gitconfig-nimbus .ircrc .zsh .minirc.switch .pypirc .screenrc .tcshrc .vimrc .xvimrc .zprofile .zshenv .zshrc)
 pushd `dirname $0` > /dev/null
 linkdir=`pwd -L`
 popd > /dev/null
