@@ -4,6 +4,15 @@
 # <https://medium.com/@henriquebastos/the-definitive-guide-to-setup-my-python-workspace-628d68552e14>
 # for an excellent example of how to make use of this setup.
 
+echo << END
+Make sure you get all the libraries you need!
+libz libbz2-dev libreadline-dev libssl-dev
+END
+
+# Check for requirements
+which gcc || exit 
+which make || exit
+
 PYENV_ROOT=~/.pyenv
 
 # pyenv install
