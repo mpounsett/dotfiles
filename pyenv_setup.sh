@@ -6,12 +6,14 @@
 
 echo << END
 Make sure you get all the libraries you need!
-libz libbz2-dev libreadline-dev libssl-dev
+gcc make zlib1g-v libbz2-dev libreadline-dev libssl-dev libsqlite3-dev
 END
 
 # Check for requirements
 which gcc || exit 
 which make || exit
+
+read -q "?Press a key to continue or ^c to quit "
 
 PYENV_ROOT=~/.pyenv
 
