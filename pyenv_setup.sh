@@ -6,7 +6,7 @@
 
 echo << END
 Make sure you get all the libraries you need!
-gcc make zlib1g-v libbz2-dev libreadline-dev libssl-dev libsqlite3-dev
+gcc make zlib1g-dev libbz2-dev libreadline-dev libssl-dev libsqlite3-dev
 END
 
 # Check for requirements
