@@ -27,8 +27,6 @@ git clone https://github.com/pyenv/pyenv-virtualenvwrapper.git ${PYENV_ROOT}/plu
 # initial setup of pyenv
 export WORKON_HOME=~/.ve
 mkdir ${WORKON_HOME}
-export PROJECT_HOME=~/workspace
-mkdir ${PROJECT_HOME}
 
 export PATH=${PYENV_ROOT}/bin:${PATH}
 eval "$(pyenv init -)"
