@@ -64,7 +64,7 @@ pyenv deactivate
 
 # set up tools3 environment
 pyenv activate tools3
-pip install pdf-diff3 flake8 powerline-status xml2rfc
+pip install flake8 pdf-diff3 powerline-status restview xml2rfc
 pyenv deactivate
 
 # set up tools2 environment
