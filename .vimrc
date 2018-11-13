@@ -68,6 +68,7 @@ augroup filetype
 
     au BufWritePost *.py call Flake8()
 
+    au FileType apache      set ts=2 sw=2 autoindent expandtab
     au FileType vim         set expandtab
     au FileType yaml        set ts=2 sw=2 autoindent
     au FileType html        set ts=3 sw=3 autoindent expandtab
