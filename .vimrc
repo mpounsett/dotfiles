@@ -59,21 +59,20 @@ filetype plugin indent on
 
 augroup filetype
     au!
-    au BufRead,BufNewFile *.proto   setfiletype proto
     au BufNewFile,BufRead *.eyaml   setfiletype yaml
     au BufNewFile,BufRead *.j2      setfiletype jinja
     au BufNewFile,BufRead *.jinja   setfiletype jinja
+    au BufRead,BufNewFile *.proto   setfiletype proto
     au BufNewFile,BufRead *.sls     setfiletype yaml
-    au BufNewFile,BufRead *.j2      setfiletype jinja
 
     au BufWritePost *.py call Flake8()
 
     au FileType apache      set ts=2 sw=2 autoindent expandtab
-    au FileType vim         set expandtab
-    au FileType yaml        set ts=2 sw=2 autoindent
     au FileType html        set ts=3 sw=3 autoindent expandtab
     au FileType markdown    set formatoptions-=l linebreak expandtab autoindent
     au FileType rst         set formatoptions-=l linebreak expandtab autoindent
+    au FileType vim         set expandtab
+    au FileType yaml        set ts=2 sw=2 autoindent
 augroup end
 
 
