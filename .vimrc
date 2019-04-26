@@ -45,6 +45,7 @@ set modelines=4
 set formatoptions-=l
 syntax enable
 colorscheme desert
+hi Search term=reverse ctermfg=black ctermbg=12 guifg=wheat guibg=peru
 
 if &term == "xterm-color"
     set t_kb=
