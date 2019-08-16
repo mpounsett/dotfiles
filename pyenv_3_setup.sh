@@ -21,4 +21,6 @@ pip install flake8 pdf-diff3 powerline-status restview xml2rfc
 pyenv deactivate
 
 # set the global pyenv shim path
-pyenv global ${PY3VER} ${PY2VER} jupyter${PY3VER} ipython2 tools${PY3VER} tools2
+pyenv global ${PY3VER} ${PY2VER} \
+	jupyter${PY3VER} ipython${PY2VER} \
+	tools${PY3VER} tools${PY2VER}
