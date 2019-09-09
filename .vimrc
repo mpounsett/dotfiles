@@ -69,6 +69,7 @@ augroup filetype
     au BufWritePost *.py call Flake8()
 
     au FileType apache      set ts=2 sw=2 autoindent expandtab
+    au FileType css         set ts=3 sw=3 autoindent expandtab
     au FileType html        set ts=3 sw=3 autoindent expandtab
     au FileType htmldjango  set ts=2 sw=2 autoindent expandtab
     au FileType icinga2     set ts=2 sw=2 autoindent expandtab
