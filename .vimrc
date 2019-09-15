@@ -16,6 +16,8 @@ NeoBundle 'fatih/vim-go'
 NeoBundle 'nvie/vim-flake8'
 NeoBundle 'ekalinin/Dockerfile.vim'
 NeoBundle 'toyamarinyon/vim-swift'
+NeoBundle 'saltstack/salt-vim'
+NeoBundle 'Glench/Vim-Jinja2-Syntax'
 
 call neobundle#end()
 NeoBundleCheck
