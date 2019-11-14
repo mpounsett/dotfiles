@@ -1,9 +1,11 @@
 #!/usr/bin/env bash
 
+PYENV_ROOT=~/.pyenv
+export PATH=${PYENV_ROOT}/bin:${PATH}
 eval "$(pyenv init -)"
 
-PY2VER=2.7.16
-PY3VER=3.7.4
+PY2VER=2.7.17
+PY3VER=3.8.0
 
 # install python
 pyenv install ${PY2VER}
