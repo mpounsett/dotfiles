@@ -9,11 +9,12 @@ PY2VER=2.7.16
 
 echo << END
 Make sure you get all the libraries you need!
-gcc make zlib1g-dev libbz2-dev libreadline-dev libssl-dev libsqlite3-dev libffi-dev
+gcc g++ make zlib1g-dev libbz2-dev libreadline-dev libssl-dev libsqlite3-dev libffi-dev
 END
 
 # Check for requirements
 which gcc || exit 
+which cc1plus || exit
 which make || exit
 
 read -p "?Press a key to continue or ^c to quit "
