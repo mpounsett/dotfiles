@@ -5,6 +5,9 @@ eval "$(pyenv init -)"
 PY2VER=2.7.16
 PY3VER=3.7.4
 
+# install python
+pyenv install ${PY2VER}
+
 # set up pyenv environments
 pyenv virtualenv ${PY2VER} ipython${PY2VER}
 pyenv virtualenv ${PY2VER} tools${PY2VER}

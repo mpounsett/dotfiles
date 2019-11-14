@@ -16,7 +16,7 @@ END
 which gcc || exit 
 which make || exit
 
-read -q "?Press a key to continue or ^c to quit "
+read -p "?Press a key to continue or ^c to quit "
 
 PYENV_ROOT=~/.pyenv
 
@@ -42,9 +42,3 @@ eval "$(pyenv init -)"
 # eval "$(pyenv init -)"
 # pyenv virtualenvwrapper_lazy
 # END
-
-#  install pythons
-pyenv install ${PY3VER}
-pyenv install ${PY2VER}
-
-pyenv global ${PY3VER} ${PY2VER}
