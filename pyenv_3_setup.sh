@@ -31,4 +31,4 @@ pyenv deactivate
 # set the global pyenv shim path
 pyenv global ${PY3VER} ${PY3OLDVER} ${PY2VER} \
 	jupyter${PY3VER} ipython${PY2VER} \
-	tools${PY3VER} tools${PY2VER}
+	tools${PY3VER} tools${PY2VER} system
