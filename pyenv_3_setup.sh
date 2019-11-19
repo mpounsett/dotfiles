@@ -1,11 +1,14 @@
 #!/usr/bin/env bash
 
+set -euxo pipefail
+
 PYENV_ROOT=~/.pyenv
 export PATH=${PYENV_ROOT}/bin:${PATH}
 eval "$(pyenv init -)"
 
-PY2VER=2.7.17
-PY3VER=3.8.0
+PY2VER="2.7.17"
+PY3VER="3.8.0"
+PY3OLDVER="3.7.4 3.6.9 3.5.7 3.4.10 3.3.7 3.2.6"
 
 # install python
 pyenv install ${PY3VER}
@@ -26,6 +29,6 @@ pip install flake8 pdf-diff3 powerline-status restview xml2rfc
 pyenv deactivate
 
 # set the global pyenv shim path
-pyenv global ${PY3VER} ${PY2VER} \
+pyenv global ${PY3VER} ${PY3OLDVER} ${PY2VER} \
 	jupyter${PY3VER} ipython${PY2VER} \
 	tools${PY3VER} tools${PY2VER}
