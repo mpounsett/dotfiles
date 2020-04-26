@@ -66,6 +66,15 @@ if [[ -z "$SSH_TTY" ]]; then
         if [[ -f ~/.ssh/oarc ]]; then
             ssh-add ~/.ssh/oarc
         fi
+        if [[ -f ~/.ssh/conundrum-codebase ]]; then
+            ssh-add ~/.ssh/conundrum-codebase
+        fi
+        if [[ -f ~/.ssh/conundrum-github ]]; then
+            ssh-add ~/.ssh/conundrum-github
+        fi
+        if [[ -f ~/.ssh/isc-gitlab ]]; then
+            ssh-add ~/.ssh/isc-gitlab
+        fi
     fi
 fi
 
