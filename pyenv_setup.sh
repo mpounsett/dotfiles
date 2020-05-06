@@ -9,7 +9,7 @@ PY2VER=2.7.16
 
 echo << END
 Make sure you get all the libraries you need!
-gcc g++ make zlib1g-dev libbz2-dev libreadline-dev libssl-dev libsqlite3-dev libffi-dev
+g++ gcc libbz2-dev libffi-dev liblzma-dev libreadline-dev libsqlite3-dev libssl-dev make zlib1g-dev
 END
 
 # Check for requirements
