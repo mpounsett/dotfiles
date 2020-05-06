@@ -19,8 +19,9 @@ pyenv virtualenv ${PY2VER} tools${PY2VER}
 
 # set up ipython2 environment
 pyenv activate ipython${PY2VER}
-pip install ipykernel
-python -m ipykernel install --user
+pip install python ipykernel notebook
+python -m ipykernel install --user \
+	--name ipython${PY2VER} --display-name "Python ${PY2VER}"
 pyenv deactivate
 
 # set up tools2 environment

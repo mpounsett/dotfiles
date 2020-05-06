@@ -19,8 +19,9 @@ pyenv virtualenv ${PY3VER} tools${PY3VER}
 
 # set up Jupiter3 environment
 pyenv activate jupyter${PY3VER}
-pip install jupyter
-python -m ipykernel install --user
+pip install jupyter ipython notebook
+python -m ipykernel install --user \
+	--name jupyter${PY3VER} --display-name "Python ${PY3VER}"
 pyenv deactivate
 
 # set up tools3 environment
