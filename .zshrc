@@ -136,7 +136,9 @@ else
     done
 fi
 
-if [[ $NOPOWERLINE == "" && -f "${pline_zsh}" ]]; then
+if [[ $ITERM_PROFILE != 'VT320' && \
+    $NOPOWERLINE == "" && \
+    -f "${pline_zsh}" ]]; then
     # powerline-daemon found to be slow and crashy
     # powerline-daemon -q
     . ${pline_zsh}
