@@ -8,7 +8,7 @@ eval "$(pyenv init -)"
 
 PY2VER="2.7.17"
 PY3VER="3.8.0"
-PY3OLDVER="3.7.4 3.6.9 3.5.7 3.4.10 3.3.7 3.2.6"
+PY3OLDVER=(3.7.4 3.6.9 3.5.7 3.4.10 3.3.7 3.2.6)
 
 # install python
 pyenv install ${PY2VER}
