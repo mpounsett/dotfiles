@@ -4,9 +4,6 @@
 # <https://medium.com/@henriquebastos/the-definitive-guide-to-setup-my-python-workspace-628d68552e14>
 # for an excellent example of how to make use of this setup.
 
-PY3VER=3.7.4
-PY2VER=2.7.16
-
 echo << END
 Make sure you get all the libraries you need!
 g++ gcc libbz2-dev libffi-dev liblzma-dev libreadline-dev libsqlite3-dev libssl-dev make zlib1g-dev
@@ -14,7 +11,6 @@ END
 
 # Check for requirements
 which gcc || exit 
-which cc1plus || exit
 which make || exit
 
 read -p "?Press a key to continue or ^c to quit "
@@ -35,11 +31,3 @@ mkdir ${WORKON_HOME}
 export PATH=${PYENV_ROOT}/bin:${PATH}
 eval "$(pyenv init -)"
 
-# cat - <<'END' >> ~/.bashrc
-# export WORKON_HOME=~/.ve
-# export PROJECT_HOME=~/workspace
-# export PYENV_ROOT=~/.pyenv
-# export PATH=${PYENV_ROOT}/bin:${PATH}
-# eval "$(pyenv init -)"
-# pyenv virtualenvwrapper_lazy
-# END
