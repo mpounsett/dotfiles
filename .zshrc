@@ -51,9 +51,6 @@ if [[ -z "$SSH_TTY" ]]; then
         ssh-agent > ~/.ssh/agent
         cat ~/.ssh/agent
         source ~/.ssh/agent
-        if [[ -f ~/.ssh/rightside_rsa ]]; then
-            ssh-add ~/.ssh/rightside_rsa
-        fi
         if [[ -f ~/.ssh/conundrum_internal_rsa ]]; then
             ssh-add ~/.ssh/conundrum_internal_rsa
         fi
