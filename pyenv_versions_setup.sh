@@ -8,7 +8,7 @@ export PATH=${PYENV_ROOT}/bin:${PATH}
 eval "$(pyenv init -)"
 
 PY2VER=(2.7.18)
-PY3VER=(3.9.5 3.8.10 3.7.10 3.6.12 3.5.10)
+PY3VER=(3.9.5 3.8.10 3.7.10)
 
 PY2_CURRENT=2.7.18
 PY3_CURRENT=3.9.5
