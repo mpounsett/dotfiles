@@ -76,10 +76,10 @@ if [[ -z "$SSH_TTY" ]]; then
 fi
 
 # pyenv/virtualenv setup
-if [[ -x "${HOME}/.pyenv/bin/pyenv" ]]; then
-    export PYENV_ROOT="${HOME}/.pyenv"
-    path=(${PYENV_ROOT}/bin $path)
-fi
+# if [[ -x "${HOME}/.pyenv/bin/pyenv" ]]; then
+    # export PYENV_ROOT="${HOME}/.pyenv"
+    # path=(${PYENV_ROOT}/bin $path)
+# fi
 
 if [[ -n `whence pyenv` ]]; then
     export WORKON_HOME=~/.ve
