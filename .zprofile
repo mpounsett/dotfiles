@@ -21,6 +21,9 @@ if [[ `git --version | cut -d" " -f3 | cut -d"." -f1-2` -ge 1.9 ]]; then
 	popd -q
 fi
 
-export PYENV_ROOT="$HOME/.pyenv"
-export PATH="$PYENV_ROOT/bin:$PATH"
-eval "$(pyenv init --path)"
+# pyenv/virtualenv setup
+if [[ -x "${HOME}/.pyenv/bin/pyenv" ]]; then
+    export PYENV_ROOT="${HOME}/.pyenv"
+    path=(${PYENV_ROOT}/bin $path)
+	eval "$(pyenv init --path)"
+fi
