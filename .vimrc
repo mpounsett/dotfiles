@@ -45,6 +45,8 @@ set bg=dark
 set modeline
 set modelines=4
 set formatoptions-=l
+set list
+set listchars=nbsp:•,tab:«·»,trail:·
 syntax enable
 colorscheme desert
 hi Search term=reverse ctermfg=black ctermbg=12 guifg=wheat guibg=peru
