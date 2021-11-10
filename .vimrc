@@ -90,7 +90,7 @@ augroup end
 
 map _ddate  i\section{:r!date +"\%A, \%B \%d, \%Y --- \%H:\%M}"<CR>kJxj
 map _sig    :r!~mattp/bin/gensig<CR>
-map _spell  :!ispell -S %<cr>:e %<cr>
+map _spell  :w<cr>:!ispell -S %<cr>:e %<cr>
 
 "load powerline when it's available
 if has('python')
