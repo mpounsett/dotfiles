@@ -1,6 +1,7 @@
 [user]
 	name = Matthew Pounsett
 	email = matt@conundrum.com
+	signingkey = 07CFBD89017A24193AF427937E719F1B79088852
 
 # This whole IncludeIf thing doesn't work on most Linuxes because git is too
 # far out of date.  This can be fixed on Debian and its derivatives by
