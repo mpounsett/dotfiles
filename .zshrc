@@ -81,14 +81,8 @@ if [[ -z "$SSH_TTY" ]]; then
         if [[ -f ~/.ssh/conundrum_external_rsa ]]; then
             ssh-add ~/.ssh/conundrum_external_rsa
         fi
-        if [[ -f ~/.ssh/conundrum-codebase ]]; then
-            ssh-add ~/.ssh/conundrum-codebase
-        fi
         if [[ -f ~/.ssh/oarc ]]; then
             ssh-add ~/.ssh/oarc
-        fi
-        if [[ -f ~/.ssh/conundrum-codebase ]]; then
-            ssh-add ~/.ssh/conundrum-codebase
         fi
         if [[ -f ~/.ssh/conundrum-github ]]; then
             ssh-add ~/.ssh/conundrum-github
