@@ -6,6 +6,12 @@
 [init]
 	defaultBranch = main
 
+[commit]
+	gpgsign = true
+
+[tag]
+	forceSignAnnotated = true
+
 # This whole IncludeIf thing doesn't work on most Linuxes because git is too
 # far out of date.  This can be fixed on Debian and its derivatives by
 # installing git 2.1 or later from backports.
