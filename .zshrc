@@ -75,12 +75,6 @@ if [[ -z "$SSH_TTY" ]]; then
         if [[ -f ~/.ssh/conundrum ]]; then
             ssh-add ~/.ssh/conundrum
         fi
-        if [[ -f ~/.ssh/conundrum_internal_rsa ]]; then
-            ssh-add ~/.ssh/conundrum_internal_rsa
-        fi
-        if [[ -f ~/.ssh/conundrum_external_rsa ]]; then
-            ssh-add ~/.ssh/conundrum_external_rsa
-        fi
         if [[ -f ~/.ssh/oarc ]]; then
             ssh-add ~/.ssh/oarc
         fi
