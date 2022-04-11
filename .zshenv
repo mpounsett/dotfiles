@@ -9,7 +9,7 @@ if [[ $OSTYPE =~ 'darwin.*' ]]; then
     export LANG=en_CA.UTF-8
 fi
 # force 24 hour clock in /bin/date
-export LC_DATE=C
+export LC_TIME=C
 
 path=(/usr/local/bin /usr/local/sbin /usr/sbin /sbin $path)
 export PATH
