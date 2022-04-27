@@ -18,6 +18,7 @@ NeoBundle 'ekalinin/Dockerfile.vim'
 NeoBundle 'toyamarinyon/vim-swift'
 NeoBundle 'saltstack/salt-vim'
 NeoBundle 'Glench/Vim-Jinja2-Syntax'
+NeoBundle 'momota/cisco.vim'
 
 call neobundle#end()
 NeoBundleCheck
