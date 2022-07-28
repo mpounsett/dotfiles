@@ -26,6 +26,10 @@ if [[ -d ~/bin ]]; then
     path=(~/bin $path)
 fi
 
+if [[ -d /opt/mattermost/bin ]]; then
+    path=(/opt/mattermost/bin $path)
+fi
+
 for dir in ~/Development ~/devel; do
     if [[ -d $dir ]]; then
         export GOPATH=$dir/go
