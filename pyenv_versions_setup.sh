@@ -33,7 +33,7 @@ pyenv deactivate
 
 # set up tools3 environment
 pyenv activate tools${PY3_CURRENT}
-pip install flake8 pdf-diff3 powerline-status restview xml2rfc
+pip install flake8 pdf-diff3 powerline-status restview xml2rfc linkchecker
 pyenv deactivate
 
 # set the global pyenv shim path
