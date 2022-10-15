@@ -15,14 +15,14 @@
 # This whole IncludeIf thing doesn't work on most Linuxes because git is too
 # far out of date.  This can be fixed on Debian and its derivatives by
 # installing git 2.1 or later from backports.
-[includeIf "gitdir:~/devel/nimbus/"]
-	path = .gitconfig-nimbus
+[includeIf "gitdir/i:~/devel/nimbus/"]
+	path = ~/.gitconfig-nimbus
 
-[includeIf "gitdir:~/devel/rightside/"]
-	path = .gitconfig-nimbus
+[includeIf "gitdir/i:~/devel/rightside/"]
+	path = ~/.gitconfig-nimbus
 
-[includeIf "gitdir:~/devel/oarc/"]
-	path = .gitconfig-nimbus
+[includeIf "gitdir/i:~/devel/oarc/"]
+	path = ~/.gitconfig-nimbus
 
 [push]
 	default = simple
