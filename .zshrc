@@ -87,16 +87,11 @@ if [[ -z "$SSH_TTY" ]]; then
     fi
 fi
 
-# pyenv/virtualenv setup
-# if [[ -x "${HOME}/.pyenv/bin/pyenv" ]]; then
-    # export PYENV_ROOT="${HOME}/.pyenv"
-    # path=(${PYENV_ROOT}/bin $path)
-# fi
-
 if [[ -n `whence pyenv` ]]; then
     export WORKON_HOME=~/.ve
     export PROJECT_HOME=~/devel
     export PYENV_VIRTUALENV_DISABLE_PROMPT=1
+    export PYENV_VIRTUALENVWRAPPER_PREFER_PYVENV="true"
     eval "$(pyenv init -)"
     pyenv virtualenvwrapper_lazy
 fi
@@ -162,6 +157,12 @@ else
     fi
 fi
 
+# NVM setup
+export NVM_DIR="$HOME/.nvm"
+[ -s "/usr/local/opt/nvm/nvm.sh" ] && \. "/usr/local/opt/nvm/nvm.sh"  # This loads nvm
+[ -s "/usr/local/opt/nvm/etc/bash_completion.d/nvm" ] && \. "/usr/local/opt/nvm/etc/bash_completion.d/nvm"  # This loads nvm bash_completion
+
+
 bindkey '\Ep' history-beginning-search-backward
 bindkey '\En' history-beginning-search-forward
 
@@ -172,12 +173,5 @@ export ZLS_COLORS="di=36:ln=35:so=32:pi=33:ex=31:bd=34;46:cd=34;43"
 export LS_COLORS="di=36:ln=35:so=32:pi=33:ex=31:bd=34;46:cd=34;43"
 export CLICOLOR=true
 export LSCOLORS=gxfxExdxbxegedabagacad
-
-for f in /usr/local/bin/virtualenvwrapper.sh /usr/bin/virtualenvwrapper.sh; do
-    if [[ -f $f ]]; then
-        source $f
-        break
-    fi
-done
 
 test -e "${HOME}/.iterm2_shell_integration.zsh" && source "${HOME}/.iterm2_shell_integration.zsh"
