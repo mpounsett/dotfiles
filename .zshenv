@@ -14,6 +14,9 @@ export LC_TIME=C
 path=(/usr/local/bin /usr/local/sbin /usr/sbin /sbin $path)
 export PATH
 
+manpath=(/usr/share/man $manpath)
+export MANPATH
+
 if [[ -d /usr/local/go/bin ]]; then
     path=(/usr/local/go/bin $path)
 fi
