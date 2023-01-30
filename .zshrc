@@ -44,6 +44,27 @@ esac
 }
 
 
+if [[ $OSTYPE =~ 'darwin.*' ]]; then
+    # Inspired by https://gist.github.com/bashbunni/f6b04fc4703903a71ce9f70c58345106
+    # requires:
+    # - https://github.com/caarlos0/timer
+    # - https://github.com/julienXX/terminal-notifier
+    #
+    POMO_WORKMSG="Work timer is up! Take a break."
+    POMO_WORKTIME=60m
+    POMO_RESTMSG="Break is over!  Time to get back to work."
+    POMO_RESTTIME=10m
+    POMO_SOUND=Blow
+    POMO_OPTIONS=(-title Pomodoro -sound ${POMO_SOUND})
+    POMO_DATE=(date "+%H:%M")
+    alias work="timer ${POMO_WORKTIME} && terminal-notifier ${POMO_OPTIONS}\
+        -message '\[$(${POMO_DATE})] ${POMO_WORKMSG}'"
+    alias rest="timer ${POMO_RESTTIME} && terminal-notifier ${POMO_OPTIONS}\
+        -message '\[$(${POMO_DATE})] ${POMO_RESTMSG}'"
+fi
+
+
+
 # Force ls to colour mode all the time
 if [[ $OSTYPE =~ 'darwin.*' ]]; then
     alias ls='ls -G'
