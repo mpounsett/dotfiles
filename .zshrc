@@ -25,6 +25,14 @@ fncurl () {
 
 apt-history () {
 case "$1" in
+    help)
+        cat << END
+        install - search for recently installed packages
+        upgrade|remove - search for recently upgraded or removed packages
+        rollback [from] [to] - show rollback data for all packages upgraded
+                               between dates 'from' and 'to'
+END
+        ;;
     install)
         cat /var/log/dpkg.log | grep 'install '
         ;;
