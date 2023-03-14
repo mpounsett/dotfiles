@@ -8,10 +8,10 @@ export PATH=${PYENV_ROOT}/bin:${PATH}
 eval "$(pyenv init -)"
 
 PY2VER=(2.7.18)
-PY3VER=(3.11.1 3.10.9 3.9.16 3.8.16 3.7.16 3.6.15)
+PY3VER=(3.11.2 3.10.10 3.9.16 3.8.16 3.7.16 3.6.15)
 
 PY2_CURRENT=2.7.18
-PY3_CURRENT=3.11.1
+PY3_CURRENT=3.11.2
 
 for VER in $PY2VER $PY3VER; do
 	echo "========================"
