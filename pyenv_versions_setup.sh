@@ -33,7 +33,7 @@ pyenv virtualenv ${PY3_CURRENT} tools${PY3_CURRENT}
 
 # set up tools3 environment
 # pyenv activate tools${PY3_CURRENT}
-# pip install flake8 pdf-diff3 powerline-status restview xml2rfc linkchecker
+# pip install flake8 pdf-diff3 powerline-status restview rst2pdf xml2rfc linkchecker
 # pyenv deactivate
 
 # set the global pyenv shim path
