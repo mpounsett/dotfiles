@@ -65,9 +65,11 @@ if [[ $OSTYPE =~ 'darwin.*' ]]; then
     POMO_SOUND=Submarine
     POMO_OPTIONS=(-title Pomodoro -sound ${POMO_SOUND})
     POMO_DATE=(date "+%H:%M")
-    alias work="timer ${POMO_WORKTIME} && terminal-notifier ${POMO_OPTIONS}\
+    alias work="timer -n Work ${POMO_WORKTIME} && \
+        terminal-notifier ${POMO_OPTIONS} \
         -message '\[$(${POMO_DATE})] ${POMO_WORKMSG}'"
-    alias rest="timer ${POMO_RESTTIME} && terminal-notifier ${POMO_OPTIONS}\
+    alias rest="timer -n Rest ${POMO_RESTTIME} && \
+        terminal-notifier ${POMO_OPTIONS} \
         -message '\[$(${POMO_DATE})] ${POMO_RESTMSG}'"
 fi
 
