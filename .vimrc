@@ -83,6 +83,7 @@ augroup filetype
     au FileType markdown    set formatoptions-=l linebreak expandtab autoindent
     au FileType mvg         set ts=2 sw=2 autoindent expandtab
     au FileType rst         set formatoptions-=l linebreak expandtab autoindent
+    au FileType sh          set formatoptions-=l linebreak expandtab autoindent
     au FileType tex         set ts=3 sw=3 autoindent expandtab
     au FileType vim         set expandtab
     au FileType yaml        set ts=2 sw=2 fo-=l fo+=t expandtab autoindent
