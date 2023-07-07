@@ -23,6 +23,8 @@ fncurl () {
     curl -o $fn -L $@
 }
 
+# Use this for rollbacks:
+# apt-get -s install $(apt-history rollback | tr '\n' ' ')
 apt-history () {
 case "$1" in
     help)
