@@ -51,6 +51,17 @@ END
 esac
 }
 
+waitfor() {
+    until ping -c1 "$1" >/dev/null 2>&1; do :; done
+}
+
+if [[ $OSTYPE =~ 'darwin.*' ]]; then
+    sayready() {
+        waitfor "$1" && say "Ready $1"
+    }
+fi
+
+
 
 if [[ $OSTYPE =~ 'darwin.*' ]]; then
     # Inspired by https://gist.github.com/bashbunni/f6b04fc4703903a71ce9f70c58345106
