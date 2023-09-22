@@ -28,6 +28,11 @@ check-refs () {
 check-refs dotfiles ~/etc/dotfiles
 check-refs pyenv ~/.pyenv/
 
+ssh-key-remove () {
+       host $1 | awk 'NR==1{print $1}; /address/ {print $NF}' | \
+               xargs -n 1 ssh-keygen -R
+}
+
 # pyenv/virtualenv setup
 if [[ -x "${HOME}/.pyenv/bin/pyenv" ]]; then
     export PYENV_ROOT="${HOME}/.pyenv"
