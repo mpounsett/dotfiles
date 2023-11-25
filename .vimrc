@@ -80,6 +80,7 @@ augroup filetype
     au FileType html        set ts=3 sw=3 autoindent expandtab
     au FileType htmldjango  set ts=2 sw=2 autoindent expandtab
     au FileType icinga2     set ts=2 sw=2 autoindent expandtab
+    au FileType json        set ts=2 sw=2 fo-=l fo+=t expandtab autoindent
     au FileType markdown    set formatoptions-=l linebreak expandtab autoindent
     au FileType mvg         set ts=2 sw=2 autoindent expandtab
     au FileType rst         set formatoptions-=l linebreak expandtab autoindent
