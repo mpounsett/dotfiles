@@ -47,7 +47,13 @@ set modeline
 set modelines=4
 set formatoptions-=l
 set list
-set listchars=nbsp:•,tab:«·»,trail:·
+set showbreak=↪\
+"set listchars=nbsp:•,tab:«·»,trail:·
+set listchars=tab:»\ ,extends:›,precedes:‹,nbsp:␣,trail:·,eol:↲
+hi NonText ctermfg=16 guifg=#4a4a59
+hi SpecialKey ctermfg=16 guifg=#4a4a59
+
+
 syntax enable
 colorscheme desert
 hi Search term=reverse ctermfg=black ctermbg=12 guifg=wheat guibg=peru
