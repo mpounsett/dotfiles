@@ -1,6 +1,6 @@
 # Machine-generated file - use setup menu in minicom to change parameters.
 # pu port             /dev/cu.usbserial
-pu port             /dev/cu.usbserial-A9XXQD0P
+pu port             /dev/cu.usbserial-A94VSMM7
 pu baudrate         9600
 pu bits             8
 pu parity           N
