@@ -188,7 +188,7 @@ if [[ $ITERM_PROFILE != 'VT320' && \
     $NOPOWERLINE == "" && \
     -f "${pline_zsh}" ]]; then
     # powerline-daemon found to be slow and crashy
-    # powerline-daemon -q
+    powerline-daemon -q
     . ${pline_zsh}
 else
     # We don't have powerline.  Set up a custom shell prompt.
