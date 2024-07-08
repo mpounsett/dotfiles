@@ -168,7 +168,7 @@ pline_zsh=""
 if [[ -n `whence pyenv` ]]; then
     powerline_loc=`pyenv which powerline 2>&/dev/null`
     if [[ $? -eq 0 ]]; then
-        pline_zsh=`find -L ${powerline_loc%/bin/powerline}/{var,bin} -name powerline.zsh |head -1 2>&/dev/null`
+        pline_zsh=`find -L ${powerline_loc%/bin/powerline}/lib* -name powerline.zsh |head -1 2>&/dev/null`
     fi
 else
     # pyenv isn't installed, or it is installed and doesn't have powerline in
