@@ -12,6 +12,7 @@ PY3VER=(3.12.4 3.11.9 3.10.14 3.9.19 3.8.19 3.7.17 3.6.15)
 
 PY2_CURRENT=2.7.18
 PY3_CURRENT=3.12.4
+PY3_TOOLS=3.11.9
 
 for VER in $PY2VER $PY3VER; do
 	echo "========================"
@@ -21,8 +22,8 @@ for VER in $PY2VER $PY3VER; do
 done
 
 # set up pyenv environments
-pyenv virtualenv ${PY3_CURRENT} jupyter${PY3_CURRENT}
-pyenv virtualenv ${PY3_CURRENT} tools${PY3_CURRENT}
+pyenv virtualenv ${PY3_TOOLS} jupyter${PY3_TOOLS}
+pyenv virtualenv ${PY3_TOOLS} tools${PY3_TOOLS}
 
 # set up Jupiter3 environment
 # pyenv activate jupyter${PY3_CURRENT}
@@ -38,5 +39,5 @@ pyenv virtualenv ${PY3_CURRENT} tools${PY3_CURRENT}
 
 # set the global pyenv shim path
 pyenv global ${PY3VER} ${PY2VER} \
-	jupyter${PY3_CURRENT} tools${PY3_CURRENT} \
-   	system
+	jupyter${PY3_TOOLS} tools${PY3_TOOLS} \
+	system
