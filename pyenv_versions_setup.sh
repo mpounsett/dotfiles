@@ -26,14 +26,14 @@ pyenv virtualenv ${PY3_TOOLS} jupyter${PY3_TOOLS}
 pyenv virtualenv ${PY3_TOOLS} tools${PY3_TOOLS}
 
 # set up Jupiter3 environment
-# pyenv activate jupyter${PY3_CURRENT}
+# pyenv activate jupyter${PY3_TOOLS}
 # pip install jupyter ipython notebook
 # python -m ipykernel install --user \
-	# --name jupyter${PY3_CURRENT} --display-name "Python ${PY3_CURRENT}"
+	# --name jupyter${PY3_TOOLS} --display-name "Python ${PY3_TOOLS}"
 # pyenv deactivate
 
 # set up tools3 environment
-# pyenv activate tools${PY3_CURRENT}
+# pyenv activate tools${PY3_TOOLS}
 # pip install flake8 pdf-diff3 powerline-status restview rst2pdf xml2rfc linkchecker
 # pyenv deactivate
 
