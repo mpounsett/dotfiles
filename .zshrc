@@ -99,6 +99,8 @@ fi
 
 # Setup the SSH agent
 if [[ -z "$SSH_TTY" ]]; then
+    # First, check if ssh-agent is running already, and if it isn't start it
+    # up.
     ssh_agent_setup=0
     if [[ -f ~/.ssh/agent ]]; then
         source ~/.ssh/agent
@@ -116,6 +118,12 @@ if [[ -z "$SSH_TTY" ]]; then
         ssh-agent > ~/.ssh/agent
         cat ~/.ssh/agent
         source ~/.ssh/agent
+    fi
+    # And then check whether there are any identities added, because ssh-agent
+    # may have been auto-started by MacOS on boot, in which case it's running
+    # but empty.
+    ids=$(ssh-add -l | head -1)
+    if [[ $ids =~ 'no identities.$' ]]; then
         if [[ -f ~/.ssh/conundrum ]]; then
             ssh-add ~/.ssh/conundrum
         fi
