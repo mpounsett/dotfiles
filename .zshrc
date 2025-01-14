@@ -59,7 +59,11 @@ waitfor() {
 
 if [[ $OSTYPE =~ 'darwin.*' ]]; then
     sayready() {
-        waitfor "$1" && say "Ready $1"
+        if [[ -z "$2" ]]; then
+            waitfor "$1" && say "Ready $1"
+        else
+            waitfor "$1" && say "Ready $2"
+        fi
     }
 fi
 
