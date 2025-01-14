@@ -54,7 +54,7 @@ esac
 }
 
 waitfor() {
-    until ping -c1 "$1" >/dev/null 2>&1; do sleep 2; done
+    until ping -c1 "$1" >/dev/null 2>&1; do sleep 1; done
 }
 
 if [[ $OSTYPE =~ 'darwin.*' ]]; then
