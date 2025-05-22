@@ -102,7 +102,7 @@ else
 fi
 
 # Setup the SSH agent
-if [[ -z "$SSH_TTY" ]]; then
+if [[ -z "$SSH_TTY" && -z "$INTELLIJ_ENVIRONMENT_READER" ]]; then
     # First, check if ssh-agent is running already, and if it isn't start it
     # up.
     ssh_agent_setup=0
