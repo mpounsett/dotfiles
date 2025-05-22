@@ -33,7 +33,9 @@ ssh-key-remove () {
                xargs -n 1 ssh-keygen -R
 }
 
-eval "$(/opt/homebrew/bin/brew shellenv)"
+if [[ -f /opt/homebrew/bin/brew ]]; then
+    eval "$(/opt/homebrew/bin/brew shellenv)"
+fi
 
 # pyenv/virtualenv setup
 if [[ -x "${HOME}/.pyenv/bin/pyenv" ]]; then
