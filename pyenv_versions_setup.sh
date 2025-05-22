@@ -1,18 +1,18 @@
 #!/usr/bin/env zsh
 
 # set -euxo pipefail
-set -uxo pipefail
+set -uo pipefail
 
 PYENV_ROOT=~/.pyenv
 export PATH=${PYENV_ROOT}/bin:${PATH}
 eval "$(pyenv init -)"
 
 PY2VER=(2.7.18)
-PY3VER=(3.12.4 3.11.9 3.10.14 3.9.19 3.8.19 3.7.17 3.6.15)
+PY3VER=(3.13.3 3.12.10 3.11.12 3.10.17 3.9.22 3.8.20 3.7.17 3.6.15)
 
 PY2_CURRENT=2.7.18
-PY3_CURRENT=3.12.4
-PY3_TOOLS=3.11.9
+PY3_CURRENT=3.13.3
+PY3_TOOLS=3.11.11
 
 for VER in $PY2VER $PY3VER; do
 	echo "========================"
@@ -41,3 +41,5 @@ pyenv virtualenv ${PY3_TOOLS} tools${PY3_TOOLS}
 pyenv global ${PY3VER} ${PY2VER} \
 	jupyter${PY3_TOOLS} tools${PY3_TOOLS} \
 	system
+
+pip install --upgrade virtualenvwrapper
