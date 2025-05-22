@@ -75,7 +75,7 @@ augroup filetype
     au BufNewFile,BufRead *.j2      setfiletype jinja
     au BufNewFile,BufRead *.jinja   setfiletype jinja
     au BufRead,BufNewFile *.proto   setfiletype proto
-    au BufNewFile,BufRead *.sls     setfiletype yaml
+    au BufRead,BufNewFile *.sls     setfiletype yaml
     " Magick Vector Graphics
     au BufNewFile,BufRead *.mvg     setfiletype mvg
 
@@ -93,8 +93,10 @@ augroup filetype
     au FileType markdown    set formatoptions-=l linebreak expandtab autoindent
     au FileType mvg         set ts=2 sw=2 autoindent expandtab
     au FileType rst         set formatoptions-=l linebreak expandtab autoindent
+    au FileType salt        set ts=2 sw=2 fo-=l fo+=t expandtab autoindent
     au FileType sh          set formatoptions-=l linebreak expandtab autoindent
     au FileType tex         set ts=3 sw=3 autoindent expandtab
+    au FileType toml        set ts=4 sw=4 fo-=l fo+=t expandtab autoindent
     au FileType vim         set expandtab
     au FileType yaml        set ts=2 sw=2 fo-=l fo+=t expandtab autoindent
 augroup end
