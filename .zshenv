@@ -52,3 +52,10 @@ fi
 if [[ -f /usr/local/bin/facter ]]; then
     export FACTERLIB=/var/opt/lib/pe-puppet/lib:/var/puppet/lib/facter/
 fi
+
+# PostgreSQL on MacOS is installed by Brew, and isn't in the default path.
+# 
+if [[ $OSTYPE =~ 'darwin.*' ]]; then
+    path=($path /opt/homebrew/opt/postgresql@17/bin)
+    export PGDATA=/opt/homebrew/var/postgresql@17
+fi
