@@ -10,6 +10,7 @@ setopt HIST_EXPIRE_DUPS_FIRST
 setopt HIST_REDUCE_BLANKS
 setopt PROMPT_SUBST
 
+autoload -Uz zmv
 
 if [[ $OSTYPE =~ 'darwin.*' ]]; then
     function connerize() { echo "$*" | sed "s/s/sh/g" }
