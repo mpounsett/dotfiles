@@ -33,9 +33,12 @@ ssh-key-remove () {
                xargs -n 1 ssh-keygen -R
 }
 
+eval "$(/opt/homebrew/bin/brew shellenv)"
+
 # pyenv/virtualenv setup
 if [[ -x "${HOME}/.pyenv/bin/pyenv" ]]; then
     export PYENV_ROOT="${HOME}/.pyenv"
     path=(${PYENV_ROOT}/bin $path)
 	eval "$(pyenv init --path)"
 fi
+
