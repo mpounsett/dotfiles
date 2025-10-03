@@ -17,6 +17,11 @@ export PATH
 manpath=(/usr/share/man $manpath)
 export MANPATH
 
+if [[ -d /Applications/Gnucash.app/Contents/MacOS/ ]]; then
+    path=($path /Applications/Gnucash.app/Contents/MacOS/)
+    export PATH
+fi
+
 if [[ -d /usr/local/go/bin ]]; then
     path=(/usr/local/go/bin $path)
 fi
