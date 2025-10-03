@@ -18,9 +18,6 @@
 [includeIf "gitdir/i:~/devel/nimbus/"]
 	path = ~/.gitconfig-nimbus
 
-[includeIf "gitdir/i:~/devel/rightside/"]
-	path = ~/.gitconfig-nimbus
-
 [includeIf "gitdir/i:~/devel/oarc/"]
 	path = ~/.gitconfig-nimbus
 
