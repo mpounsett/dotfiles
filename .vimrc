@@ -53,7 +53,6 @@ set listchars=tab:»\ ,extends:›,precedes:‹,nbsp:␣,trail:·,eol:↲
 hi NonText ctermfg=16 guifg=#4a4a59
 hi SpecialKey ctermfg=16 guifg=#4a4a59
 
-
 syntax enable
 colorscheme desert
 hi Search term=reverse ctermfg=black ctermbg=12 guifg=wheat guibg=peru
