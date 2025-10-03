@@ -4,6 +4,7 @@
 # git.
 #
 check-refs () {
+    HEAD_FILE='.git/FETCH_HEAD'
     if [[ `git --version | cut -d" " -f3 | cut -d"." -f1-2` -ge 1.9 ]]; then
         if [[ `uname` == 'Linux' ]]; then
             stat=(stat -c "%Y")
@@ -14,8 +15,12 @@ check-refs () {
         if [ -d "$2" ]; then
             echo -n "[$1]: "
             pushd -q "$2"
-            last=`${stat} .git/FETCH_HEAD`
-            now=`date +'%s'`
+            if [ -f "${HEAD_FILE}" ]; then
+                last=$(${stat} ${HEAD_FILE})
+            else
+                last=0
+            fi
+            now=$(date +'%s')
             if [[ $(( $last + 86400 )) -lt $now ]]; then
                 git fetch > /dev/null 2>&1
             fi
