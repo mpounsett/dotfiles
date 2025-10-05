@@ -70,6 +70,22 @@ for src in $ircfiles; do
     fi
 done
 
+muttsrcdirs=(`find ${linkdir}/.mutt -type d`)
+muttdestdirs=(`echo $muttsrcdirs | sed "s|${linkdir}/*||g"`)
+for dir in $muttdestdirs; do
+    if [[ ! -d ~/$dir ]]; then
+        mkdir -p ~/${dir}
+    fi
+done
+
+muttfiles=(`find $muttsrcdirs -maxdepth 1 -mindepth 1 -type f`)
+for src in $muttfiles; do
+    dest=`echo $src | sed "s|${linkdir}/*||g"`
+    if [[ ! -f ~/$dest ]]; then
+        ln -s $src ~/$dest
+    fi
+done
+
 ipython=`which ipython` >& /dev/null
 if [[ -x $ipython && ! -d ~/.ipython ]]; then
     ${ipython} profile create
