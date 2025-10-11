@@ -1,5 +1,24 @@
 #!/usr/bin/env zsh
-# vim:expandtab:ts=2
+# vim:expandtab:ts=2:sw=2
+
+###########################
+### CONFIGURATION VARIABLES
+
+# The python version to use for tools and jupyter environments
+PY3_TOOLS=3.14.0
+
+# Packages to install in each environment
+JUPYTER_PACKAGES=(jupyter ipython notebook)
+TOOLS_PACKAGES=(flake8 powerline-status restview rst2pdf xml2rfc linkchecker)
+
+# The low and high Python 3 minor versions to install
+# '10' for 3.10, 11 for 3.11, etc.
+PY3_LOW_MINOR=6
+PY3_HIGH_MINOR=14
+
+
+### END OF CONFIGURATION
+###########################
 
 # set -euxo pipefail
 set -uo pipefail
@@ -9,39 +28,53 @@ export PATH=${PYENV_ROOT}/bin:${PATH}
 eval "$(pyenv init -)"
 
 PY2VER=(2.7.18)
-PY3VER=(3.14.0 3.13.8 3.12.12 3.11.14 3.10.19 3.9.24 3.8.20 3.7.17 3.6.15)
+PY3VER=("${(@f)$(
+  for (( minor=PY3_LOW_MINOR; minor<=PY3_HIGH_MINOR; minor++ )); do
+    pyenv install -l |
+      grep -oE "3\.${minor}\.[0-9]+$" |        # emit only the version, no leading spaces
+      sort -t . -k3,3n | tail -1
+  done | sort -t . -k2,2rn
+)}")
 
-PY2_CURRENT=2.7.18
-PY3_CURRENT=3.14.0
-PY3_TOOLS=3.14.0
+JUPYTER_ENV="jupyter${PY3_TOOLS}"
+TOOLS_ENV="tools${PY3_TOOLS}"
+
+INSTALLED=($(pyenv version --bare))
 
 for VER in $PY2VER $PY3VER; do
-	echo "========================"
-	echo "Installing Python ${VER}"
-	echo "========================"
-	pyenv install ${VER}
+  if [[ "${INSTALLED[(i)${VER}]}" -gt ${#INSTALLED} ]]; then
+    echo "========================"
+    echo "Installing Python ${VER}"
+    echo "========================"
+    pyenv install ${VER}
+  fi
 done
 
-# set up pyenv environments
-pyenv virtualenv ${PY3_TOOLS} jupyter${PY3_TOOLS}
-pyenv virtualenv ${PY3_TOOLS} tools${PY3_TOOLS}
-
 # set up Jupiter3 environment
-pyenv shell jupyter${PY3_TOOLS} || exit "Failed to open jupyter shell"
-pip install jupyter ipython notebook
+if [[ "${INSTALLED[(i)${JUPYTER_ENV}]}" -gt ${#INSTALLED} ]]; then
+  pyenv virtualenv "${PY3_TOOLS}" "${JUPYTER_ENV}"
+fi
+
+print "\n===== Updating ${JUPYTER_ENV} setup.\n\n"
+pyenv shell "${JUPYTER_ENV}" || exit "Failed to open jupyter shell"
+pip install ${JUPYTER_PACKAGES}
 python -m ipykernel install --user \
-  --name jupyter${PY3_TOOLS} --display-name "Python ${PY3_TOOLS}"
+  --name "${JUPYTER_ENV}" --display-name "Python ${PY3_TOOLS}"
 pyenv shell --unset
 
 # set up tools3 environment
-pyenv shell tools${PY3_TOOLS} || exit "Failed to open tools shell"
-pip install flake8 powerline-status restview rst2pdf xml2rfc \
-  linkchecker
+if [[ "${INSTALLED[(i)${TOOLS_ENV}]}" -gt ${#INSTALLED} ]]; then
+  pyenv virtualenv "${PY3_TOOLS}" "${TOOLS_ENV}"
+fi
+
+print "\n===== Updating ${TOOLS_ENV} setup.\n\n"
+pyenv shell "${TOOLS_ENV}" || exit "Failed to open tools shell"
+pip install ${TOOLS_PACKAGES}
 pyenv shell --unset
 
 # set the global pyenv shim path
-pyenv global ${PY3VER} ${PY2VER} \
-  jupyter${PY3_TOOLS} tools${PY3_TOOLS} \
-  system
+print "\n===== Setting global Python version list.\n\n"
+pyenv global ${PY3VER} ${PY2VER} "${JUPYTER_ENV}" "${TOOLS_ENV}" system
 
+echo "\n===== Updating virtualenvwrapper.\n\n"
 pip install --upgrade virtualenvwrapper
