@@ -1,4 +1,5 @@
 #!/usr/bin/env zsh
+# vim:expandtab:ts=2
 
 # set -euxo pipefail
 set -uo pipefail
@@ -29,18 +30,18 @@ pyenv virtualenv ${PY3_TOOLS} tools${PY3_TOOLS}
 pyenv shell jupyter${PY3_TOOLS} || exit "Failed to open jupyter shell"
 pip install jupyter ipython notebook
 python -m ipykernel install --user \
-	--name jupyter${PY3_TOOLS} --display-name "Python ${PY3_TOOLS}"
+  --name jupyter${PY3_TOOLS} --display-name "Python ${PY3_TOOLS}"
 pyenv shell --unset
 
 # set up tools3 environment
 pyenv shell tools${PY3_TOOLS} || exit "Failed to open tools shell"
 pip install flake8 powerline-status restview rst2pdf xml2rfc \
-	linkchecker
+  linkchecker
 pyenv shell --unset
 
 # set the global pyenv shim path
 pyenv global ${PY3VER} ${PY2VER} \
-	jupyter${PY3_TOOLS} tools${PY3_TOOLS} \
-	system
+  jupyter${PY3_TOOLS} tools${PY3_TOOLS} \
+  system
 
 pip install --upgrade virtualenvwrapper
