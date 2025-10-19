@@ -1,3 +1,6 @@
 [submodule ".vim/bundle/neobundle.vim"]
 	path = .vim/bundle/neobundle.vim
 	url = https://github.com/Shougo/neobundle.vim
+[submodule "ansible-user"]
+	path = ansible-user
+	url = git@github.com:mpounsett/ansible-user.git
