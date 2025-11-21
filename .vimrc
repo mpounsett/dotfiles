@@ -25,6 +25,9 @@ NeoBundleCheck
 
 let g:go_version_warning=0
 
+"set statusline=%<%f\ %h%w%m%r%=%-14.(%l,%c%V%)\ %P\ %{strwidth(join(getline(1,'$'),'\ '))}
+set statusline=%<%f\ %h%w%m%r%=%-14.(%l,%c%V\ %{strwidth(join(getline(1,'$'),'\ '))}%)\ %P
+
 set encoding=utf-8
 set tw=78
 set nobk
