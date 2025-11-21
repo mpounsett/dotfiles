@@ -12,6 +12,7 @@ source ~/.mutt/aliases
 source ~/.mutt/colours.rc
 set meta_key                =   yes
 set send_charset            =   "utf-8"
+set index_format            =   "%4C %Z %{%b %d} %-15.15L (%?l?%4l&%4c?) %?M?[%M hidden] ?%s"
 
 alternative_order text/plain text text/html #prefer plaintext over dumped html
 auto_view text/html #load html emails with links (config in ~/.mailcap)
