@@ -1,61 +1,47 @@
 # vim:expandtab
-#
-set editor                  =   `echo \$EDITOR`
-set mbox_type               =   Maildir
-set spoolfile               =   +/
+set editor              =   `echo \$EDITOR`
+set mbox_type           =   Maildir
+set spoolfile           =   +/
+set sort                =   threads
+set sort_thread_groups  =   last-date-received
 set edit_headers
-set alias_file              =   ~/.mutt/aliases
+set alias_file          =   ~/.mutt/aliases
 source ~/.mutt/aliases
 source ~/.mutt/colours.rc
-set meta_key                =   yes
-set send_charset            =   "utf-8"
-set index_format            =   "%4C %Z %{%b %d} %-15.15L (%?l?%4l&%4c?) %?M?[%M hidden] ?%s"
-
-# show threaded view
-set use_threads             =   threads
-# order threads by most recent activity
-set sort                    =   reverse-last-date-received
-# order messages inside a thread oldest → newest
-set sort_aux                =   date
-
+set meta_key            =   yes
+set send_charset        =   "utf-8"
 
 alternative_order text/plain text text/html #prefer plaintext over dumped html
 auto_view text/html #load html emails with links (config in ~/.mailcap)
 
 # IMAP
-set imap_user               =   matt
+set imap_user           =   matt
 # obtained from 1Password
-set imap_pass               =   `op read "op://OARC/OARC Mail/password"`
-# set imap_authenticators     =   CRAM-MD5
-#
-# only deal with subscribed folders, so I can ignore that whole "oarcpublic/"
-# mess
-set imap_list_subscribed    =   yes
-set imap_check_subscribed   =   yes
-# set imap_server_noise       =   no
+set imap_pass           =   `op read "op://OARC/OARC Mail/password"`
+# set imap_authenticators =   CRAM-MD5
+set folder              =   imaps://mail.dns-oarc.net/
+set spoolfile           =   +INBOX
+set imap_check_subscribed
 
-set folder                  =   imaps://mail.dns-oarc.net/
-set spoolfile               =   +INBOX
-
-set header_cache            =   ~/.cache/mutt/headers/
-set message_cachedir        =   ~/.cache/mutt/messages/
+set header_cache        =   ~/.cache/mutt
+set message_cachedir    =   ~/.cache/mutt
 unset imap_passive
-set imap_keepalive          =   300
-set mail_check              =   120
+set imap_keepalive      =   300
+set mail_check          =   120
 
 # SMTP
-set record                  =   "+Sent"
-set trash                   =   "+Deleted"
-set postponed               =   "+Drafts"
-set realname                =   'Matthew Pounsett'
-set from                    =   matt@dns-oarc.net
-# set ssl_starttls            =   yes
-# set ssl_force_tls           =   yes
-set smtp_url                =   "smtps://matt@dns-oarc.net@mail.dns-oarc.net:465"
-set smtp_pass               =   "$imap_pass"
-set smtp_authenticators     =   PLAIN
+set record              =   "+Sent"
+set trash               =   "+Deleted"
+set postponed           =   "+Drafts"
+set realname            =   'Matthew Pounsett'
+set from                =   matt@dns-oarc.net
+# set ssl_starttls        =   yes
+# set ssl_force_tls       =   yes
+set smtp_url            =   "smtps://matt@dns-oarc.net@mail.dns-oarc.net:465"
+set smtp_pass           =   "$imap_pass"
+set smtp_authenticators =   PLAIN
 my_hdr  bcc: matt@dns-oarc.net
-set signature               =   ~/.mutt/signature-oarc
+set signature           =   ~/.mutt/signature-oarc
 
 # GPG
 source ~/.mutt/gpg.rc
@@ -67,12 +53,12 @@ unset postpone_encrypt
 # Sidebar
 bind index,pager \ca sidebar-toggle-visible
 set sidebar_visible
-set sidebar_format          =   "%B%?F? [%F]?%* %?N?%N/?%S"
+set sidebar_format = "%B%?F? [%F]?%* %?N?%N/?%S"
 set sidebar_new_mail_only
 set mail_check_stats
 sidebar_whitelist +INBOX +admin +as112-ops +inbox-cleanup
 mailboxes +INBOX +mike +root +admin +staff +as112-ops +backups +certbot +DMARC-reports +DNSViz +mailman-ops +MastoDNS +monitoring +RANCiD +ksk-rollover +inbox-cleanup +Junk
 
 # Pager stuff
-set markers                 =   no
+set markers=no
 macro pager \cb <pipe-entry>'urlview'<enter> 'Follow links with urlview'
