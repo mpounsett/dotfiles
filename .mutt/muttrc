@@ -25,8 +25,8 @@ set folder                  =   imaps://mail.dns-oarc.net/
 set spoolfile               =   +INBOX
 set imap_check_subscribed
 
-set header_cache            =   ~/.cache/mutt
-set message_cachedir        =   ~/.cache/mutt
+set header_cache            =   ~/.cache/mutt/headers/
+set message_cachedir        =   ~/.cache/mutt/messages/
 unset imap_passive
 set imap_keepalive          =   300
 set timeout                 =   300
