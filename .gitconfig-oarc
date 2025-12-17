@@ -1,0 +1,5 @@
+# vim:ft=gitconfig
+[user]
+	name = Matthew Pounsett
+	email = matt@dns-oarc.net
+	signingkey = C3B7812CE3877A17E43583BBE35A35AA7B4EB11E
