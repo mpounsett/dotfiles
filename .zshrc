@@ -22,6 +22,9 @@ source "${ZINIT_HOME}/zinit.zsh"
 # zinit plugins
 zinit ice depth=1; zinit light romkatv/powerlevel10k
 
+# zsh plugins
+zinit light zsh-users/zsh-syntax-highlighting
+
 
 export HISTSIZE=1000
 export SAVEHIST=4000
