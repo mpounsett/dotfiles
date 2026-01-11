@@ -1,5 +1,19 @@
 # vim:autoindent:expandtab:ts=4
-#
+
+
+# Set the directory where zinit and plugins should be stored
+ZINIT_HOME="${XDG_DATA_HOME:-${HOME}/.local/share}/zinit/zinit.git"
+
+# Download Zinit if it's not already there
+if [ ! -d "$ZINIT_HOME" ]; then
+    mkdir -p "$(dirname $ZINIT_HOME)"
+    git clone https://github.com/zdharma-continuum/zinit.git "$ZINIT_HOME"
+fi
+
+# And run it
+source "${ZINIT_HOME}/zinit.zsh"
+
+
 export HISTSIZE=1000
 export SAVEHIST=4000
 export HISTFILE=~/.zsh_history
