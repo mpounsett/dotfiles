@@ -9,7 +9,7 @@ PY3_TOOLS=3.14.0
 
 # Packages to install in each environment
 JUPYTER_PACKAGES=(jupyter ipython notebook)
-TOOLS_PACKAGES=(ansible flake8 powerline-status restview rst2pdf xml2rfc linkchecker)
+TOOLS_PACKAGES=(ansible flake8 restview rst2pdf xml2rfc linkchecker)
 
 # The low and high Python 3 minor versions to install
 # '10' for 3.10, 11 for 3.11, etc.
