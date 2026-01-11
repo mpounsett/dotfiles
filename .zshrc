@@ -73,15 +73,20 @@ zinit light zsh-users/zsh-autosuggestions
 autoload -U compinit && compinit
 zinit cdreplay -q
 
-export HISTSIZE=1000
-export SAVEHIST=4000
-export HISTFILE=~/.zsh_history
-
-setopt EXTENDED_HISTORY
-setopt INC_APPEND_HISTORY
-setopt HIST_EXPIRE_DUPS_FIRST
+HISTSIZE=5000
+HISTFILE=~/.zsh_history
+SAVEHIST=${HISTSIZE}
+HISTDUP=erase
+setopt SHARE_HISTORY
+## implied by SHARE_HISTORY
+# setopt INC_APPEND_HISTORY
+# setopt EXTENDED_HISTORY
+setopt HIST_IGNORE_SPACE
+setopt HIST_IGNORE_ALL_DUPS
+setopt HIST_SAVE_NO_DUPS
+setopt HIST_IGNORE_DUPS
+setopt HIST_FIND_NO_DUPS
 setopt HIST_REDUCE_BLANKS
-setopt PROMPT_SUBST
 
 autoload -Uz zmv
 
