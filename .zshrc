@@ -1,5 +1,47 @@
 # vim:autoindent:expandtab:ts=4
 
+# Setup the SSH agent
+if [[ -z "$SSH_TTY" && -z "$INTELLIJ_ENVIRONMENT_READER" ]]; then
+    # First, check if ssh-agent is running already, and if it isn't start it
+    # up.
+    ssh_agent_setup=0
+    if [[ -f ~/.ssh/agent ]]; then
+        source ~/.ssh/agent
+    fi
+    if [[ -n "$SSH_AGENT_PID" ]]; then
+        kill -0 $SSH_AGENT_PID >& /dev/null
+        if [[ $? -eq 0 ]]; then
+            pid_comm=`ps -p $SSH_AGENT_PID -o comm | tail -1`
+            if [[ $pid_comm =~ 'ssh-agent$' ]]; then
+                ssh_agent_setup=1
+            fi
+        fi
+    fi
+    if [[ ssh_agent_setup -eq 0 ]]; then
+        ssh-agent > ~/.ssh/agent
+        cat ~/.ssh/agent
+        source ~/.ssh/agent
+    fi
+    # And then check whether there are any identities added, because ssh-agent
+    # may have been auto-started by MacOS on boot, in which case it's running
+    # but empty.
+    ids=$(ssh-add -l | head -1)
+    if [[ $ids =~ 'no identities.$' ]]; then
+        if [[ -f ~/.ssh/conundrum ]]; then
+            ssh-add ~/.ssh/conundrum
+        fi
+        if [[ -f ~/.ssh/oarc ]]; then
+            ssh-add ~/.ssh/oarc
+        fi
+        if [[ -f ~/.ssh/conundrum-github ]]; then
+            ssh-add ~/.ssh/conundrum-github
+        fi
+        if [[ -f ~/.ssh/isc-gitlab ]]; then
+            ssh-add ~/.ssh/isc-gitlab
+        fi
+    fi
+fi
+
 # Set up the Powerlevel10k instant prompt.
 # Initialization code that may require console input (password prompts, [y/n]
 # confirmations, etc.) must go above this block; everything else may go below.
@@ -127,48 +169,6 @@ elif [[ :$OSTYPE =~ 'freebsd.*' ]]; then
     alias ls='ls -G'
 else
     alias ls='ls --color'
-fi
-
-# Setup the SSH agent
-if [[ -z "$SSH_TTY" && -z "$INTELLIJ_ENVIRONMENT_READER" ]]; then
-    # First, check if ssh-agent is running already, and if it isn't start it
-    # up.
-    ssh_agent_setup=0
-    if [[ -f ~/.ssh/agent ]]; then
-        source ~/.ssh/agent
-    fi
-    if [[ -n "$SSH_AGENT_PID" ]]; then
-        kill -0 $SSH_AGENT_PID >& /dev/null
-        if [[ $? -eq 0 ]]; then
-            pid_comm=`ps -p $SSH_AGENT_PID -o comm | tail -1`
-            if [[ $pid_comm =~ 'ssh-agent$' ]]; then
-                ssh_agent_setup=1
-            fi
-        fi
-    fi
-    if [[ ssh_agent_setup -eq 0 ]]; then
-        ssh-agent > ~/.ssh/agent
-        cat ~/.ssh/agent
-        source ~/.ssh/agent
-    fi
-    # And then check whether there are any identities added, because ssh-agent
-    # may have been auto-started by MacOS on boot, in which case it's running
-    # but empty.
-    ids=$(ssh-add -l | head -1)
-    if [[ $ids =~ 'no identities.$' ]]; then
-        if [[ -f ~/.ssh/conundrum ]]; then
-            ssh-add ~/.ssh/conundrum
-        fi
-        if [[ -f ~/.ssh/oarc ]]; then
-            ssh-add ~/.ssh/oarc
-        fi
-        if [[ -f ~/.ssh/conundrum-github ]]; then
-            ssh-add ~/.ssh/conundrum-github
-        fi
-        if [[ -f ~/.ssh/isc-gitlab ]]; then
-            ssh-add ~/.ssh/isc-gitlab
-        fi
-    fi
 fi
 
 if [[ -n `whence pyenv` ]]; then
