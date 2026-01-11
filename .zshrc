@@ -66,7 +66,11 @@ zinit ice depth=1; zinit light romkatv/powerlevel10k
 
 # zsh plugins
 zinit light zsh-users/zsh-syntax-highlighting
+zinit light zsh-users/zsh-completions
 
+# Load completions
+autoload -U compinit && compinit
+zinit cdreplay -q
 
 export HISTSIZE=1000
 export SAVEHIST=4000
