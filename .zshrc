@@ -266,15 +266,7 @@ test -e "${HOME}/.iterm2_shell_integration.zsh" && source "${HOME}/.iterm2_shell
 
 # fzf shell integration
 if [ ! -z "$(whence fzf)" ]; then
-    autoload -Uz is-at-least
-
-    fzf_version=$(fzf --version | awk '{print $1}')
-
-    if is-at-least 0.48.0 "${fzf_version}"; then
-        eval "$(fzf --zsh)"
-    else
-        eval "$(fzf)"
-    fi
+    eval "$(fzf --zsh)"
 fi
 
 # zoxide
