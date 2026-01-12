@@ -36,6 +36,12 @@ PY3VER=("${(@f)$(
   done | sort -t . -k2,2rn
 )}")
 
+if (( ${PY3VER[(Ie)$PY3_TOOLS]} == 0 )); then
+    print -u2 -P "%F{red}%BWARNING%B%f: PY3_TOOLS ($PY3_TOOLS) is not the latest release."
+    PY3VER=($PY3_TOOLS ${PY3VER:#$PY3_TOOLS})
+fi
+
+
 JUPYTER_ENV="jupyter${PY3_TOOLS}"
 TOOLS_ENV="tools${PY3_TOOLS}"
 
