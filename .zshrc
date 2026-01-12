@@ -127,6 +127,16 @@ zle -N clear-screen-and-scrollback
 bindkey '^Xl' clear-screen-and-scrollback
 
 
+# pbcopy the current command buffer to clipboard (MacOS)
+if [ ! -z $(whence pbcopy) ]; then
+    function copy-buffer-to-clipboard() {
+        echo -n "$BUFFER" | pbcopy
+        zle -M "Copied to clipboard"
+    }
+    zle -N copy-buffer-to-clipboard
+    bindkey '^Xc' copy-buffer-to-clipboard
+fi
+
 
 if [[ $OSTYPE =~ 'darwin.*' ]]; then
     function connerize() { echo "$*" | sed "s/s/sh/g" }
