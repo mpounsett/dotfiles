@@ -102,11 +102,31 @@ setopt HIST_REDUCE_BLANKS
 bindkey '\Ep' history-beginning-search-backward
 bindkey '\En' history-beginning-search-forward
 
-# set up some autoloads and relevant keybindings
+# zmv for magic file renames
 autoload -Uz zmv
+alias zcp='zmv -C'  # Copy with patterns
+alias zln='zmv -L'  # Link with patterns
+
+# edit command prompt using $EDITOR
 autoload -Uz edit-command-line
 zle -N edit-command-line
 bindkey -M vicmd 'v' edit-command-line
+
+# magic space expands shell history variables like !!
+bindkey ' ' magic-space
+
+# rebuild the current input buffer after clearing the screen and scrollback
+# buffer
+function clear-screen-and-scrollback() {
+    echoti civis >"$TTY"
+    printf '%b' '\e[H\e[2J\e[3J' >"$TTY"
+    echoti cnorm >"$TTY"
+    zle .reset-prompt
+}
+zle -N clear-screen-and-scrollback
+bindkey '^Xl' clear-screen-and-scrollback
+
+
 
 if [[ $OSTYPE =~ 'darwin.*' ]]; then
     function connerize() { echo "$*" | sed "s/s/sh/g" }
