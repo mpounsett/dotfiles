@@ -236,6 +236,15 @@ if [[ -n `whence pyenv` ]]; then
     export PYENV_VIRTUALENVWRAPPER_PREFER_PYVENV="true"
     eval "$(pyenv init -)"
     pyenv virtualenvwrapper_lazy
+
+    pyenv_latest() {
+        pyenv install -l \
+            | sed 's/^[[:space:]]*//' \
+            | grep -E '^[0-9]+\.[0-9]+\.[0-9]+$' \
+            | sort -V \
+            | awk -F. '{ key=$1 "." $2; ver[key]=$0 } END { for (k in ver) print ver[k] }' \
+            | sort -V
+    }
 fi
 
 # NVM setup
