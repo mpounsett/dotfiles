@@ -54,6 +54,14 @@ fi
 # And run it
 source "${ZINIT_HOME}/zinit.zsh"
 
+# Download TPM (Tmux Plugin Manager) if it's not already there
+TPM_HOME="${HOME}/.tmux/plugins/tpm"
+if [ ! -d "${TPM_HOME}" ]; then
+    mkdir -p "$(dirname ${TPM_HOME})"
+    git clone https://github.com/tmux-plugins/tpm ${TPM_HOME}
+fi
+
+
 # zinit plugins
 zinit ice depth=1; zinit light romkatv/powerlevel10k
 
