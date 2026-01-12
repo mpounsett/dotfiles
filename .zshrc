@@ -92,6 +92,9 @@ setopt HIST_IGNORE_DUPS
 setopt HIST_FIND_NO_DUPS
 setopt HIST_REDUCE_BLANKS
 
+bindkey '\Ep' history-beginning-search-backward
+bindkey '\En' history-beginning-search-forward
+
 autoload -Uz zmv
 
 if [[ $OSTYPE =~ 'darwin.*' ]]; then
@@ -199,9 +202,6 @@ export NVM_DIR="$HOME/.nvm"
 [ -s "/usr/local/opt/nvm/nvm.sh" ] && \. "/usr/local/opt/nvm/nvm.sh"  # This loads nvm
 [ -s "/usr/local/opt/nvm/etc/bash_completion.d/nvm" ] && \. "/usr/local/opt/nvm/etc/bash_completion.d/nvm"  # This loads nvm bash_completion
 
-
-bindkey '\Ep' history-beginning-search-backward
-bindkey '\En' history-beginning-search-forward
 
 # ls and completion colours
 #
