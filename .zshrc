@@ -63,6 +63,9 @@ zinit light zsh-users/zsh-completions
 zinit light zsh-users/zsh-autosuggestions
 zinit light Aloxaf/fzf-tab
 
+# add snippets
+zinit snippet OMZP::command-not-found
+
 # Load completions
 autoload -U compinit && compinit
 zinit cdreplay -q
