@@ -102,7 +102,11 @@ setopt HIST_REDUCE_BLANKS
 bindkey '\Ep' history-beginning-search-backward
 bindkey '\En' history-beginning-search-forward
 
+# set up some autoloads and relevant keybindings
 autoload -Uz zmv
+autoload -Uz edit-command-line
+zle -N edit-command-line
+bindkey -M vicmd 'v' edit-command-line
 
 if [[ $OSTYPE =~ 'darwin.*' ]]; then
     function connerize() { echo "$*" | sed "s/s/sh/g" }
