@@ -255,6 +255,12 @@ if [[ -n `whence pyenv` ]]; then
     }
 fi
 
+
+# Debian installs `bat` as `batcat`
+if [[ -f /etc/debian_version ]]; then
+  alias bat=batcat
+fi
+
 # NVM setup
 export NVM_DIR="$HOME/.nvm"
 [ -s "/usr/local/opt/nvm/nvm.sh" ] && \. "/usr/local/opt/nvm/nvm.sh"  # This loads nvm
