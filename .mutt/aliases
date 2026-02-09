@@ -7,12 +7,15 @@ alias rebecca rebecca@dns-oarc.net
 alias steve stevos@dns-oarc.net
 alias keith keith@dns-oarc.net
 #
-# OARC business aliases
+# OARC business aliases/lists
 alias admin admin@dns-oarc.net
 alias billing billing@dns-oarc.net
+alias buying buying@dns-oarc.net
 alias cro cro@dns-oarc.net
 alias crow cro@dns-oarc.net
+alias dns-operations dns-operations@lists.dns-oarc.net
 alias meeting meeting@dns-oarc.net
+alias members members@lists.dns-oarc.net
 alias staff staff@lists.dns-oarc.net
 #
 # OARC Suppliers/External
