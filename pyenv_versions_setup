@@ -4,17 +4,22 @@
 ###########################
 ### CONFIGURATION VARIABLES
 
-# The python version to use for tools and jupyter environments
-PY3_TOOLS=3.14.0
+# The python version to use for tools and jupyter environments.  This will be
+# set to the most recent installed Python version unless overridden here.
+# PY3_TOOLS=3.14.1
 
 # Packages to install in each environment
 JUPYTER_PACKAGES=(jupyter ipython notebook)
 TOOLS_PACKAGES=(ansible flake8 restview rst2pdf xml2rfc linkchecker)
 
+# Global packages are installed in whatever the "latest" Python 3.x version
+# is, which is what goes at the top of the globals list.
+GLOBAL_PACKAGES=(rich)
+
 # The low and high Python 3 minor versions to install
 # '10' for 3.10, 11 for 3.11, etc.
 PY3_LOW_MINOR=6
-PY3_HIGH_MINOR=14
+PY3_HIGH_MINOR=15
 
 
 ### END OF CONFIGURATION
@@ -36,23 +41,34 @@ PY3VER=("${(@f)$(
   done | sort -t . -k2,2rn
 )}")
 
-if (( ${PY3VER[(Ie)$PY3_TOOLS]} == 0 )); then
-    print -u2 -P "%F{red}%BWARNING%B%f: PY3_TOOLS ($PY3_TOOLS) is not the latest release."
-    PY3VER=($PY3_TOOLS ${PY3VER:#$PY3_TOOLS})
-fi
+PY3_TOOLS=${PY3_TOOLS:-${PY3VER[1]}}
+PY3VER=($PY3_TOOLS $PY3VER)
+PY3VER=(${(Onu)PY3VER})
 
+if [[ ${PY3VER[1]} != $PY3_TOOLS ]]; then
+  print -u2 -P "%F{red}%BWARNING%B%f: PY3_TOOLS ($PY3_TOOLS) is not the latest release."
+fi
 
 JUPYTER_ENV="jupyter${PY3_TOOLS}"
 TOOLS_ENV="tools${PY3_TOOLS}"
 
 INSTALLED=($(pyenv version --bare))
 
+# If VER isn't found in INSTALLED (the returned index search is larger than
+# the size of the array) then install it.
 for VER in $PY2VER $PY3VER; do
   if [[ "${INSTALLED[(i)${VER}]}" -gt ${#INSTALLED} ]]; then
     echo "========================"
     echo "Installing Python ${VER}"
     echo "========================"
     pyenv install ${VER}
+  fi
+
+  if [[ "${VER}" == "${PY3VER[1]}" ]]; then
+    print "\n===== Installing Global Packages for ${VER}.\n\n"
+    pyenv shell "${VER}"
+    pip install ${GLOBAL_PACKAGES}
+    pyenv shell --unset
   fi
 done
 
