@@ -4,23 +4,36 @@
 if [[ -z "$SSH_TTY" && -z "$INTELLIJ_ENVIRONMENT_READER" ]]; then
     # First, check if ssh-agent is running already, and if it isn't start it
     # up.
-    ssh_agent_setup=0
-    if [[ -f ~/.ssh/agent ]]; then
-        source ~/.ssh/agent
+    SSH_AGENT_SETUP=0
+    SSH_AGENT_ENV_FILE="${HOME}/.ssh/agent_env"
+
+    # OpenSSH 10.2p1 takes over ~/.ssh/agent, which I used to use for
+    # $SSH_AGENT_ENV_FILE.  So, check if that exists and is a file, and if it
+    # is a file, delete it.
+    if [[ -f "${HOME}/.ssh/agent" ]]; then
+        rm "${HOME}/.ssh/agent"
+    fi
+
+    if [[ -f "${SSH_AGENT_ENV_FILE}" ]]; then
+        # The agent environment file includes an echo statement that I don't
+        # want printing during shell setup, so redirect stdout.
+        source "${SSH_AGENT_ENV_FILE}" > /dev/null
     fi
     if [[ -n "$SSH_AGENT_PID" ]]; then
         kill -0 $SSH_AGENT_PID >& /dev/null
         if [[ $? -eq 0 ]]; then
             pid_comm=`ps -p $SSH_AGENT_PID -o comm | tail -1`
             if [[ $pid_comm =~ 'ssh-agent$' ]]; then
-                ssh_agent_setup=1
+                SSH_AGENT_SETUP=1
             fi
         fi
     fi
-    if [[ ssh_agent_setup -eq 0 ]]; then
-        ssh-agent > ~/.ssh/agent
-        cat ~/.ssh/agent
-        source ~/.ssh/agent
+    if [[ "${SSH_AGENT_SETUP}" -eq 0 ]]; then
+        echo "Setting up new ssh-agent environment."
+        ssh-agent > "${SSH_AGENT_ENV_FILE}"
+        # The agent environment file includes an echo statement that I don't
+        # want printing during shell setup, so redirect stdout.
+        source "${SSH_AGENT_ENV_FILE}" > /dev/null
     fi
     # And then check whether there are any identities added, because ssh-agent
     # may have been auto-started by MacOS on boot, in which case it's running
