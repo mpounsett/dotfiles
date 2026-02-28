@@ -64,3 +64,9 @@ if [[ $OSTYPE =~ 'darwin.*' ]]; then
     path=($path /opt/homebrew/opt/postgresql@17/bin)
     export PGDATA=/opt/homebrew/var/postgresql@17
 fi
+
+# Set up Obsidian CLI on MacOS
+if [[ -d /Applications/Obsidian.app ]]
+then
+    path=($path /Applications/Obsidian.app/Contents/MacOS)
+fi
