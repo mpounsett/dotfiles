@@ -120,6 +120,8 @@ setopt HIST_IGNORE_DUPS
 setopt HIST_FIND_NO_DUPS
 setopt HIST_REDUCE_BLANKS
 
+# search forward and back through command history for commands matching what's
+# already in the input buffer
 bindkey '\Ep' history-beginning-search-backward
 bindkey '\En' history-beginning-search-forward
 
@@ -133,7 +135,7 @@ autoload -Uz edit-command-line
 zle -N edit-command-line
 bindkey -M vicmd 'v' edit-command-line
 
-# magic space expands shell history variables like !!
+# magic space expands shell history variables (e.g. !! and $!)
 bindkey ' ' magic-space
 
 # rebuild the current input buffer after clearing the screen and scrollback
