@@ -1,6 +1,14 @@
-.claude/
-.idea/
-.junie/
-CLAUDE.md
-AGENTS.md
+# general stuff
 .venv
+
+# PyCharm Stuff
+.junie/
+.idea/
+
+# Claude Code
+.claude/
+CLAUDE.md
+
+# Other AI agent crap
+AGENTS.md
+
