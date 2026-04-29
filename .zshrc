@@ -76,13 +76,17 @@ fi
 
 
 # zinit plugins
-zinit ice depth=1; zinit light romkatv/powerlevel10k
+if is-at-least 5.1; then
+    zinit ice depth=1; zinit light romkatv/powerlevel10k
+fi
 
 # zsh plugins
 zinit light zsh-users/zsh-syntax-highlighting
 zinit light zsh-users/zsh-completions
 zinit light zsh-users/zsh-autosuggestions
-zinit light Aloxaf/fzf-tab
+if is-at-least 5.1; then
+    zinit light Aloxaf/fzf-tab
+fi
 
 # add snippets
 zinit snippet OMZP::command-not-found
