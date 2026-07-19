@@ -24,6 +24,26 @@ system settings, acting on real accounts or data).
 4. Read Codex's report, inspect or reference screenshot paths, and summarize
    the result for the user.
 
+**Artifact paths are easy to lose track of — be explicit and defensive.**
+`-o "$REPORT"` only captures the agent's final message; it does not control
+where screenshots get saved. When Codex uses its native screen-capture tool
+(rather than a CLI/Playwright screenshot), that tool has its own default
+save location independent of `--add-dir`, observed in practice to be
+`<repo>/tmp/GPT/<task-slug>/`. Two things prevent artifacts from going
+missing:
+- Interpolate the literal resolved `$ARTIFACT_DIR` path into the prompt
+  *text* itself (e.g. "Save screenshots to /var/folders/.../codex-computer-use.XXXXXX/
+  using these exact filenames: ..."). Referring to it only as "the artifact
+  directory" without ever writing out the path gives Codex nothing concrete
+  to target, and it will fall back to its own convention.
+- Also instruct Codex, as its last step, to copy (not move) every
+  screenshot and its report into `$ARTIFACT_DIR` regardless of where they
+  were first written — this normalizes the location even if Codex's tools
+  ignored the earlier instruction. If artifacts still aren't in
+  `$ARTIFACT_DIR` afterward, check `<repo>/tmp/GPT/` before concluding the
+  run produced nothing.
+  
+
 Use this command shape:
 
 ```bash
@@ -53,7 +73,10 @@ Tell Codex:
 - The platform and app type, such as iOS, web, Electron, CLI, or desktop.
 - Known launch commands, test credentials, seed data, deep links, or fixtures.
 - Whether source edits are allowed.  Default to no edits.
-- Where screenshots, logs, and the final report should be saved.
+- Where screenshots, logs, and the final report should be saved — give the
+  literal resolved `$ARTIFACT_DIR` path in the prompt text, and ask Codex to
+  copy final artifacts there as a last step even if intermediate tools saved
+  them elsewhere.
 - To return pass, fail, or blocked, plus steps performed, observed behaviour,
   screenshot paths, and actionable feedback.
 
