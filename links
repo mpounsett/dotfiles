@@ -22,6 +22,22 @@ for file in $dotfiles; do
     ln -f $linkdir/$file ~/$file
 done
 
+claudesrcdirs=(`find ${linkdir}/.claude -type d`)
+claudedestdirs=(`echo $claudesrcdirs | sed "s|${linkdir}/*||g"`)
+for dir in $claudedestdirs; do
+    if [[ ! -d ~/$dir ]]; then
+        mkdir -p ~/${dir}
+    fi
+done
+
+claudefiles=(`find $claudesrcdirs -maxdepth 1 -mindepth 1 -type f`)
+for src in $claudefiles; do
+    dest=`echo $src | sed "s|${linkdir}/*||g"`
+    if [[ ! -f ~/$dest ]]; then
+        ln -s $src ~/$dest
+    fi
+done
+
 vimsrcdirs=(`find ${linkdir}/.vim  -type d`)
 vimdestdirs=(`echo $vimsrcdirs | sed "s|${linkdir}/*||g"`)
 for dir in $vimdestdirs; do
