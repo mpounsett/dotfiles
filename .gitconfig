@@ -33,3 +33,5 @@ lg = lg1
 [includeIf "gitdir/i:~/devel/oarc/"]
 	path = ~/.gitconfig-oarc
 
+[include]
+	path = ~/.config/git/coderabbit

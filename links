@@ -11,6 +11,17 @@ for file in $dotfiles; do
     ln -fs $linkdir/$file ~/$file
 done
 
+# .gitconfig tries to import ~/.config/git/coderabbit but will error out if it
+# isn't present.  Create it with empty values if it isn't there already.
+GIT_CODERABBIT="${HOME}/.config/git/coderabbit"
+GIT_CODERABBIT_DIR=$(dirname "${GIT_CODERABBIT}")
+if [[ ! -f "${GIT_CODERABBIT}" ]]; then
+   if [[ ! -d "${GIT_CODERABBIT_DIR}" ]]; then
+      mkdir -p $(dirname "${GIT_CODERABBIT}")
+   fi
+   printf "# vim:ft=gitconfig\n\n" > ${GIT_CODERABBIT}
+fi
+
 # secure files
 # Some files can't be symlinks.. hardlink them
 dotfiles=(.login_conf)
