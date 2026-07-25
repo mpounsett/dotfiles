@@ -17,19 +17,24 @@ evidence, not authority.
 1. Identify the review target: uncommitted changes, base branch, commit SHA,
    PR checkout, or specific files.
 2. Create a temporary artifact directory for the Codex report.
-3. Run `codex review` with a focused review prompt.
+3. Run `codex exec` with a focused review prompt.
 4. Read Codex's report and verify important claims against the code before
    presenting them.
 
-Use one of these command shapes:
+Use this command shape:
 
 ```bash
 ARTIFACT_DIR="$(mktemp -d "${TMPDIR:-/tmp}/codex-review.XXXXXX")"
 REPORT="$ARTIFACT_DIR/report.md"
 PROMPT="$ARTIFACT_DIR/prompt.md"
 
-codex -C "$PWD" review - < "$PROMPT" > "$REPORT"
+codex exec -s read-only -C "$PWD" --output-last-message "$REPORT" - < "$PROMPT"
 ```
+
+If the report file comes back empty, Codex likely crashed executing a command
+rather than producing a final answer — check `stderr` for a tool-call failure
+(e.g. a sandbox/tmpdir error from re-running tests) and retry with an explicit
+instruction in the prompt for how to avoid the error.
 
 ## Review Prompt
 
@@ -47,6 +52,11 @@ Prioritize findings over summary.  For each finding include:
 
 Do not edit files.  If there are no substantive findings, say so and name any
 residual test gaps.
+
+Do not run the test suite, linter, or type-checker unless you need their
+output for something code-reading alone can't tell you.  If a sandboxed
+command fails for environment reasons (e.g. a missing writable temp
+directory), treat that as a tooling limitation, not a finding.
 ```
 
 Add review scope to the prompt.  Some possible examples:
@@ -56,6 +66,10 @@ Add review scope to the prompt.  Some possible examples:
 
 Add task-specific context when useful: requirements, risky areas, expected
 behaviour, relevant tests, or files Claude is unsure about.
+
+Along with the instruction for codex to avoid running the tests/linting
+commands, state in your prompt whether the test suite, linter, or type-checker
+already pass.
 
 ## Reporting Back
 
