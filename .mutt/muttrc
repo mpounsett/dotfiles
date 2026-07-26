@@ -60,8 +60,8 @@ set sidebar_visible
 set sidebar_format = "%B%?F? [%F]?%* %?N?%N/?%S"
 set sidebar_new_mail_only
 set mail_check_stats
-sidebar_whitelist +INBOX +admin +as112-ops +inbox-cleanup
-mailboxes +INBOX +mike +root +admin +staff +as112-ops +backups +certbot +DMARC-reports +DNSViz +mailman-ops +MastoDNS +monitoring +RANCiD +ksk-rollover +inbox-cleanup +Junk
+sidebar_whitelist +INBOX +admin +as112-ops +inbox-cleanup +OARC46 +OARC47 +OARC48 +AGM2026
+mailboxes +INBOX +mike +admin +staff +mailman-ops +MastoDNS +root +as112-ops +backups +certbot +DMARC-reports +DNSViz +monitoring +RANCiD +ksk-rollover +inbox-cleanup +Junk +OARC46 +OARC47 +OARC48 +AGM2026
 
 # Pager stuff
 set markers=no
