@@ -10,7 +10,7 @@
 
 # Packages to install in each environment
 JUPYTER_PACKAGES=(jupyter ipython notebook)
-TOOLS_PACKAGES=(ansible flake8 restview rst2pdf xml2rfc linkchecker)
+TOOLS_PACKAGES=(ansible flake8 restview rst2pdf xml2rfc linkchecker pre-commit)
 
 # Global packages are installed in whatever the "latest" Python 3.x version
 # is, which is what goes at the top of the globals list.
