@@ -66,3 +66,7 @@ mailboxes +INBOX +mike +admin +staff +mailman-ops +MastoDNS +root +as112-ops +ba
 # Pager stuff
 set markers=no
 macro pager \cb <pipe-entry>'urlview'<enter> 'Follow links with urlview'
+
+# Attachment view
+macro attach B "<pipe-entry>~/bin/view_attachment_html<enter>" \
+  "Open selected attachment in a browser."
