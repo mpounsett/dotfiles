@@ -101,6 +101,7 @@ augroup filetype
     au FileType toml        set ts=4 sw=4 fo-=l fo+=t expandtab autoindent
     au FileType vim         set expandtab
     au FileType yaml        set ts=2 sw=2 fo-=l fo+=t expandtab autoindent
+    au FileType zsh         set ts=3 sw=3 autoindent expandtab
 augroup end
 
 
