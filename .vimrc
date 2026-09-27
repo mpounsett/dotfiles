@@ -17,7 +17,6 @@ NeoBundle 'nvie/vim-flake8'
 NeoBundle 'ekalinin/Dockerfile.vim'
 NeoBundle 'toyamarinyon/vim-swift'
 NeoBundle 'saltstack/salt-vim'
-NeoBundle 'Glench/Vim-Jinja2-Syntax'
 NeoBundle 'momota/cisco.vim'
 
 call neobundle#end()
@@ -75,9 +74,8 @@ augroup filetype
     au!
     au BufNewFile,BufRead *.eyaml   setfiletype yaml
     au BufNewFile,BufRead *.j2      setfiletype jinja
-    au BufNewFile,BufRead *.jinja   setfiletype jinja
     au BufRead,BufNewFile *.proto   setfiletype proto
-    au BufRead,BufNewFile *.sls     setfiletype yaml
+    " au BufRead,BufNewFile *.sls     setfiletype yaml
     " Magick Vector Graphics
     au BufNewFile,BufRead *.mvg     setfiletype mvg
 
