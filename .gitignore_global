@@ -1,6 +1,7 @@
 # general stuff
 .venv
 .worktrees
+.DS_Store
 
 # PyCharm Stuff
 .junie/
