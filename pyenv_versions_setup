@@ -21,6 +21,17 @@ GLOBAL_PACKAGES=(rich)
 PY3_LOW_MINOR=9
 PY3_HIGH_MINOR=15
 
+# Extra environment for `pyenv install` of specific Python 3 minor versions.
+# Keys are inclusive minor-version ranges "LOW-HIGH" (either bound may be
+# empty for open-ended); values are shell-quoted VAR=value assignments, e.g.
+#   "14-" 'PYTHON_CONFIGURE_OPTS="--enable-shared --with-lto"'
+# All matching entries are applied; if overlapping ranges set the same
+# variable, the entry whose key sorts last wins.
+typeset -A PY3_BUILD_ENV=(
+  "-" "CONFIGURE_OPTS=--enable-optimizations"
+  "-13" "PYTHON_BUILD_HOMEBREW_OPENSSL_FORMULA=openssl@3"
+)
+
 
 ### END OF CONFIGURATION
 ###########################
@@ -31,6 +42,20 @@ set -uo pipefail
 PYENV_ROOT=~/.pyenv
 export PATH=${PYENV_ROOT}/bin:${PATH}
 eval "$(pyenv init -)"
+
+# Fill BUILD_ENV with the PY3_BUILD_ENV assignments that apply to Python
+# version $1, one VAR=value per element.
+py3_build_env() {
+  local ver=$1 minor range lo hi
+  BUILD_ENV=()
+  [[ $ver == 3.* ]] || return 0
+  minor=${${ver#3.}%%.*}
+  for range in ${(ko)PY3_BUILD_ENV}; do
+    lo=${range%%-*}; hi=${range##*-}
+    (( minor >= ${lo:-0} && minor <= ${hi:-9999} )) || continue
+    BUILD_ENV+=(${(Q)${(z)PY3_BUILD_ENV[$range]}})
+  done
+}
 
 PY2VER=(2.7.18)
 PY3VER=("${(@f)$(
@@ -61,7 +86,8 @@ for VER in $PY2VER $PY3VER; do
     echo "========================"
     echo "Installing Python ${VER}"
     echo "========================"
-    pyenv install ${VER}
+    py3_build_env ${VER}
+    env ${BUILD_ENV} pyenv install ${VER}
   fi
 
   if [[ "${VER}" == "${PY3VER[1]}" ]]; then
