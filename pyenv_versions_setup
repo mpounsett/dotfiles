@@ -18,7 +18,7 @@ GLOBAL_PACKAGES=(rich)
 
 # The low and high Python 3 minor versions to install
 # '10' for 3.10, 11 for 3.11, etc.
-PY3_LOW_MINOR=6
+PY3_LOW_MINOR=9
 PY3_HIGH_MINOR=15
 
 
