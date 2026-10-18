@@ -28,8 +28,12 @@ PY3_HIGH_MINOR=15
 # All matching entries are applied; if overlapping ranges set the same
 # variable, the entry whose key sorts last wins.
 typeset -A PY3_BUILD_ENV=(
-  "-" "CONFIGURE_OPTS=--enable-optimizations"
+  # Keep Python-only options out of dependency builds (such as OpenSSL).
+  "-" "PYTHON_CONFIGURE_OPTS=--enable-optimizations"
   "-13" "PYTHON_BUILD_HOMEBREW_OPENSSL_FORMULA=openssl@3"
+  # Python 3.9 needs Tcl/Tk 8; install it with brew install tcl-tk@8.
+  # Avoid SDK-only pipe2/dup3 symbols that are unavailable at runtime on macOS 26.
+  "-9" "PYTHON_BUILD_HOMEBREW_TCLTK_FORMULA=tcl-tk@8 ac_cv_func_pipe2=no ac_cv_func_dup3=no"
 )
 
 
@@ -87,6 +91,9 @@ for VER in $PY2VER $PY3VER; do
     echo "Installing Python ${VER}"
     echo "========================"
     py3_build_env ${VER}
+    if [[ ! -z "${BUILD_ENV}" ]]; then
+      echo "BUILD ENV: ${BUILD_ENV}"
+    fi
     env ${BUILD_ENV} pyenv install ${VER}
   fi
 
