@@ -42,7 +42,7 @@ fi
 # initial setup of pyenv
 export WORKON_HOME=~/.ve
 if [[ ! -d "${WORKON_HOME}" ]]; then
-  mkdir -f "${WORKON_HOME}"
+  mkdir "${WORKON_HOME}"
 fi
 
 export PATH=${PYENV_ROOT}/bin:${PATH}
