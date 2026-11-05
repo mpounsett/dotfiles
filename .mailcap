@@ -1,0 +1,32 @@
+# HTML
+# text/html; links -dump %s -codepage utf-8; nametemplate=%s.html; copiousoutput
+text/html; /opt/homebrew/bin/lynx -width=$COLUMNS -dont_wrap_pre -dump -force_html -localhost -assume_charset=%{charset} -display-charset=utf-8 %s; copiousoutput
+# text/html; $HOME/bin/view_attachment_html %s; copiousoutput
+
+# Calendar
+text/calendar; open -a /System/Applications/Calendar.app %s
+application/ics; open -a /System/Applications/Calendar.app %s
+# text/calendar; ~/.mutt/mutt-ical.py -i -e "$EMAIL" %s
+# application/isc; ~/.mutt/mutt-ical.py -i -e "$EMAIL" %s
+
+
+# Images
+image/jpeg; $HOME/bin/view_attachment.sh %s jpeg
+image/pjpeg; $HOME/bin/view_attachment.sh %s pjpeg
+image/png; $HOME/bin/view_attachment.sh %s png
+image/gif; $HOME/bin/view_attachment.sh %s gif
+
+# PDF
+application/pdf; $HOME/bin/view_attachment.sh %s pdf
+
+# MS Excel
+application/x-msexcel; $HOME/bin/view_attachment.sh %s
+application/ms-exc; $HOME/bin/view_attachment.sh %s
+application/excel; $HOME/bin/view_attachment.sh %s
+application/msexcel; $HOME/bin/view_attachment.sh %s
+application/vnd.ms-exc; $HOME/bin/view_attachment.sh %s
+application/vnd.ms-excel; $HOME/bin/view_attachment.sh %s xls
+# docx
+application/vnd.openxmlformats-officedocument.wordprocessingml.document; $HOME/bin/view_attachment.sh %s docx
+# xlsx
+application/vnd.openxmlformats-officedocument.spreadsheetml.sheet; $HOME/bin/view_attachment.sh %s xlsx
