@@ -34,6 +34,10 @@ if [[ -d ~/bin ]]; then
     path=(~/bin $path)
 fi
 
+if [[ -d ~/.local/bin ]]; then
+   path=(~/.local/bin $path)
+fi
+
 if [[ -d /opt/mattermost/bin ]]; then
     path=(/opt/mattermost/bin $path)
 fi
