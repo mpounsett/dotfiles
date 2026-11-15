@@ -18,6 +18,7 @@ NeoBundle 'ekalinin/Dockerfile.vim'
 NeoBundle 'toyamarinyon/vim-swift'
 NeoBundle 'saltstack/salt-vim'
 NeoBundle 'momota/cisco.vim'
+NeoBundle 'christoomey/vim-titlecase'
 
 call neobundle#end()
 NeoBundleCheck
