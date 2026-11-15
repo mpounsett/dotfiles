@@ -1,0 +1,296 @@
+# Powerlevel10k Classic conversion for Oh My Posh 32.0.0 and Zsh.
+# Colors use the default xterm palette values from ~/.p10k.zsh.
+version = 4
+final_space = true
+console_title_template = '{{ .Shell }} in {{ .Folder }}'
+
+[var]
+PromptChar = '❯'
+NormalChar = '❮'
+VisualChar = 'V'
+ReplaceChar = '▶'
+PythonIcon = ''
+RubyIcon = ''
+Untracked = '?'
+LeadingDiamond = ''
+
+[palette]
+path = '#0087AF' # 31
+vim = '#00AF00' # 34
+teal = '#00AFAF' # 37
+terraform = '#00AFD7' # 38
+anchor = '#00AFFF' # 39
+clock = '#5F8787' # 66
+perl = '#5F87AF' # 67
+lime = '#5FAF00' # 70
+file_manager = '#5FAF87' # 72
+nix = '#5FAFD7' # 74
+success = '#5FD700' # 76
+php = '#875FFF' # 99
+tasks = '#87AFD7' # 110
+failure_status = '#D70000' # 160
+ruby = '#D75F87' # 168
+gold = '#D7AF00' # 178
+remote = '#D7AF87' # 180
+failure = '#FF0000' # 196
+panel = '#444444' # 238
+separator = '#949494' # 246
+muted = '#A8A8A8' # 248
+
+[upgrade]
+notice = true
+interval = '168h'
+auto = false
+source = 'cdn'
+
+[transient_prompt]
+background = 'transparent'
+foreground = 'p:success'
+foreground_templates = ['{{ if ne .Code 0 }}p:failure{{ end }}']
+# template = '{{ if .Interrupted }}<red>^C </>{{ end }}{{ .Var.PromptChar }} '
+template = '{{ .Var.PromptChar }} '
+right_template = """\
+    <p:panel>{{ .Var.LeadingDiamond }}</>\
+    <p:clock,p:panel>{{ now | date "15:04:05" }}</>\
+"""
+
+[secondary_prompt]
+background = 'transparent'
+foreground = 'p:success'
+template = '{{ .Var.PromptChar }}{{ .Var.PromptChar }} '
+
+# Row 1, left. The block cap follows the last visible segment.
+[[blocks]]
+  type = 'prompt'
+  alignment = 'left'
+  newline = true
+  trailing_diamond = ''
+
+  [[blocks.segments]]
+    type = "path"
+    style = 'diamond'
+    foreground = "p:path"
+    background = 'p:panel'
+    template = " {{ if not .Writable }} {{ end }}{{ .Path }} "
+
+    [blocks.segments.options]
+      style = "powerlevel"
+      max_width = 80
+      display_root = true
+      edge_format = "<b><p:anchor>%s</></b>"
+      gitdir_format = "<b><p:anchor>%s</></b>"
+
+  [[blocks.segments]]
+    type = "git"
+    style = 'diamond'
+    foreground = "p:success"
+    background = 'p:panel'
+    exclude_folders = ["~"]
+    template = """\
+    {{ if .Detached }}\
+      {{ if .Commit.Refs.Tags }}<p:muted>#</>{{ $tag := index.Commit.Refs.Tags 0 }}{{ if gt (len $tag) 32 }}{{ trunc 12 $tag }}…{{ trunc -12 $tag }}{{ else }}{{ $tag }}{{ end }}\\
+      {{ else }}<p:muted>@</>{{ trunc 8 .Hash }}\
+      {{ end }}\
+    {{ else }}\
+      {{ .HEAD }}\
+      {{ if .Upstream }}\
+        {{ $upstream := regexReplaceAll "^[^/]+/" .Upstream "" }}\
+        {{ if ne $upstream .HEAD -}}<p:muted>:</>{{ $upstream }}{{ end }}\
+      {{ end }}\
+    {{ end }}\
+    {{ if matchP "(^|[^[:alnum:]])(wip|WIP)($|[^[:alnum:]])" .Commit.Subject }} <p:gold>wip</>{{ end }}\
+    {{ if or .Behind .Ahead }} {{ if .Behind }}⇣{{ .Behind }}{{ end }}{{ if .Ahead }}⇡{{ .Ahead }}{{ end }}{{ end }}\
+    {{ if or .PushBehind .PushAhead }} {{ if .PushBehind }}⇠{{ .PushBehind }}{{ end }}{{ if .PushAhead }}⇢{{ .PushAhead }}{{ end }}{{ end }}\
+    {{ if .StashCount }} *{{ .StashCount }}{{ end }}\
+    {{ if .Merge }} <p:failure>merge</>{{ else if .Rebase }} <p:failure>rebase</>{{ else if .CherryPick }} <p:failure>cherry-pick</>{{ else if .Revert }} <p:failure>revert</>{{ end }}\
+    {{ $conflicted := max .Working.Unmerged .Staging.Unmerged }}\
+    {{ $staged := add .Staging.Added .Staging.Modified .Staging.Deleted }}\
+    {{ $unstaged := add .Working.Added .Working.Modified .Working.Deleted }}\
+    {{ if $conflicted }} <p:failure>~{{ $conflicted }}</>{{ end }}\
+    {{ if $staged }} <p:gold>+{{ $staged }}</>{{ end }}\
+    {{ if $unstaged }} <p:gold>!{{ $unstaged }}</>{{ end }}\
+    {{ if .Working.Untracked }} <p:anchor>{{ .Var.Untracked }}{{ .Working.Untracked }}</>{{ end }}\
+    """
+
+    [blocks.segments.options]
+      fetch_status = true
+      branch_icon = ""
+      branch_template = "{{ if gt (len .Branch) 32 }}{{ trunc 12 .Branch }}…{{ trunc -12 .Branch }}{{ else }}{{ .Branch }}{{ end }}"
+
+# Row 1, right. Hidden if it would overlap the left prompt.
+[[blocks]]
+  type = 'prompt'
+  alignment = 'right'
+  overflow = 'hide'
+  leading_diamond = ''
+
+  [[blocks.segments]]
+    type = "status"
+    style = 'diamond'
+    foreground = "p:failure_status"
+    background = 'p:panel'
+    foreground_templates = ["{{ if eq .Code 0 }}p:lime{{ end }}"]
+    template = "{{ if or (and .Error (contains \"|\" .String)) (and (gt .Code 128) (le .Code 159)) }} {{ .String }} {{ if eq .Code 0 }}✔{{ else }}✘{{ end }} {{ end }}"
+    [blocks.segments.options]
+      always_enabled = true
+      status_template = "{{ if and (gt .Code 128) (le .Code 159) }}{{ trimPrefix \"SIG\" (reason .Code) }}{{ else }}{{ .Code }}{{ end }}"
+
+  [[blocks.segments]]
+    type = "executiontime"
+    style = 'diamond'
+    foreground = "p:muted"
+    background = 'p:panel'
+    template = '{{ .FormattedMs }}'
+
+    [blocks.segments.options]
+      threshold = 3000
+
+  [[blocks.segments]]
+    type = "text"
+    alias = "background_jobs"
+    style = 'diamond'
+    foreground = "p:teal"
+    background = 'p:panel'
+    template = "{{ if gt .Jobs 0 }}  {{ end }}"
+
+  [[blocks.segments]]
+    type = "text"
+    alias = "direnv"
+    style = 'diamond'
+    foreground = "p:gold"
+    background = 'p:panel'
+    template = "{{ if .Env.DIRENV_DIR }} ▼ {{ end }}"
+
+  # Virtualenv and Conda are evaluated separately, as in Powerlevel10k.
+  # pyenv global-version suppression is approximated by the explicit override
+  # or a .python-version file in the current directory.
+  [[blocks.segments]]
+    type = "text"
+    alias = "virtualenv"
+    style = 'diamond'
+    foreground = "p:teal"
+    background = 'p:panel'
+    template = """\
+    {{ $selected := replace ":" " " .Env.PYENV_VERSION }}\
+    {{ if and (not $selected) (glob ".python-version") }}\
+      {{ $selected = regexReplaceAll "[[:space:]]+" (trim (readFile ".python-version")) " " }}\
+    {{ end }}\
+    {{ $root := default (printf "%s/.pyenv" .Env.HOME) .Env.PYENV_ROOT }}\
+    {{ $global := "system" }}\
+    {{ if glob (printf "%s/version" $root) }}\
+      {{ $global = regexReplaceAll "[[:space:]]+" (trim (readFile (printf "%s/version" $root))) " " }}\
+    {{ end }}{{ if and .Env.VIRTUAL_ENV (not (and $selected (ne $selected $global))) }} {{ base .Env.VIRTUAL_ENV }} {{ .Var.PythonIcon }} {{ end }}\
+    """
+
+
+  [[blocks.segments]]
+    type = "text"
+    alias = "pyenv"
+    style = 'diamond'
+    foreground = "p:teal"
+    background = 'p:panel'
+    template = """\
+    {{ $selected := replace ":" " " .Env.PYENV_VERSION }}\
+    {{ if and (not $selected) (glob ".python-version") }}\
+      {{ $selected = regexReplaceAll "[[:space:]]+" (trim (readFile ".python-version")) " " }}\
+    {{ end }}\
+    {{ $root := default (printf "%s/.pyenv" .Env.HOME) .Env.PYENV_ROOT }}\
+    {{ $global := "system" }}\
+    {{ if glob (printf "%s/version" $root) }}\
+      {{ $global = regexReplaceAll "[[:space:]]+" (trim (readFile (printf "%s/version" $root))) " " }}\
+    {{ end }}{{ if and $selected (ne $selected $global) }} {{ $selected }} {{ .Var.PythonIcon }} {{ end }}\
+    """
+
+
+  [[blocks.segments]]
+    type = "text"
+    alias = "goenv"
+    style = 'diamond'
+    foreground = "p:teal"
+    background = 'p:panel'
+    template = "{{ if .Env.GOENV_VERSION }} {{ .Env.GOENV_VERSION }}  {{ end }}"
+
+  [[blocks.segments]]
+    type = "text"
+    alias = "nvm"
+    style = 'diamond'
+    foreground = "p:lime"
+    background = 'p:panel'
+    template = "{{ if matchP \"/versions/node/[^/]+/bin/?$\" .Env.NVM_BIN }} {{ .Env.NVM_BIN | dir | base }} {{ .Var.NodeIcon }} {{ end }}"
+
+  [[blocks.segments]]
+    type = "text"
+    alias = "rbenv"
+    style = 'diamond'
+    foreground = "p:ruby"
+    background = 'p:panel'
+    template = "{{ if .Env.RBENV_VERSION }} {{ .Env.RBENV_VERSION }} {{ .Var.RubyIcon }} {{ end }}"
+
+  [[blocks.segments]]
+    type = "text"
+    alias = "rvm"
+    style = 'diamond'
+    foreground = "p:ruby"
+    background = 'p:panel'
+    template = "{{ if .Env.MY_RUBY_HOME }} {{ trimPrefix \"ruby-\" (first (splitList \"@\" (base .Env.MY_RUBY_HOME))) }} {{ .Var.RubyIcon }} {{ end }}"
+
+  [[blocks.segments]]
+    type = "terraform"
+    style = 'diamond'
+    foreground = "p:terraform"
+    background = 'p:panel'
+    template = "{{ if and .WorkspaceName (ne .WorkspaceName \"default\") }} {{ .WorkspaceName }}  {{ end }}"
+
+  [[blocks.segments]]
+    type = "text"
+    alias = "context"
+    style = 'diamond'
+    foreground = "p:remote"
+    background = 'p:panel'
+    foreground_templates = ["{{ if and .Root (not .Env.SSH_CONNECTION) (not .Env.SSH_CLIENT) }}p:gold{{ end }}"]
+    template = """\
+      {{ if or .Env.SSH_CONNECTION .Env.SSH_CLIENT (and .Root (not .Env.SUDO_USER)) }}\
+        {{ $labels := .HostName | trimSuffix \".\" | splitList \".\" }}\
+        {{ if .Root }}<b>{{ end }}\
+        {{ .UserName }}@{{ if ge (len $labels) 3 }}\
+          {{ $labels | initial | initial | join \".\" }}\
+        {{ else }}\
+          {{ first $labels }}\
+        {{ end }}\
+        {{ if .Root }}</b>{{ end }}\
+      {{ end }}\
+    """
+
+
+
+  [[blocks.segments]]
+    type = "text"
+    alias = "vim_shell"
+    style = 'diamond'
+    foreground = "p:vim"
+    background = 'p:panel'
+    template = "{{ if .Env.VIMRUNTIME }}  {{ end }}"
+
+  [[blocks.segments]]
+    type = "time"
+    style = 'diamond'
+    foreground = "p:clock"
+    background = 'p:panel'
+
+    [blocks.segments.options]
+      time_format = "15:04:05"
+
+
+# Row 2. Zsh's native Oh My Posh vi-mode hook supplies the keymap.
+[[blocks]]
+  type = 'prompt'
+  alignment = 'left'
+  newline = true
+
+  [[blocks.segments]]
+    type = 'vimode'
+    style = 'plain'
+    background = 'transparent'
+    foreground = 'p:success'
+    foreground_templates = ['{{ if ne .Code 0 }}p:failure{{ end }}']
+    template = '{{ if eq .Mode "normal" }}{{ .Var.NormalChar }}{{ else if eq .Mode "visual" }}{{ .Var.VisualChar }}{{ else if eq .Mode "replace" }}{{ .Var.ReplaceChar }}{{ else }}{{ .Var.PromptChar }}{{ end }}'

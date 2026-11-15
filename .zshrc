@@ -76,11 +76,6 @@ fi
 
 
 # zinit plugins
-if is-at-least 5.1; then
-    zinit ice depth=1; zinit light romkatv/powerlevel10k
-fi
-
-# zsh plugins
 zinit light zsh-users/zsh-syntax-highlighting
 zinit light zsh-users/zsh-completions
 zinit light zsh-users/zsh-autosuggestions
@@ -95,14 +90,6 @@ zinit snippet OMZP::command-not-found
 autoload -U compinit && compinit
 zinit cdreplay -q
 
-# Set up the Powerlevel10k instant prompt.
-# Initialization code that may require console input (password prompts, [y/n]
-# confirmations, etc.) must go above this block; everything else may go below.
-if [[ -r "${XDG_CACHE_HOME:-$HOME/.cache}/p10k-instant-prompt-${(%):-%n}.zsh" ]]; then
-  source "${XDG_CACHE_HOME:-$HOME/.cache}/p10k-instant-prompt-${(%):-%n}.zsh"
-fi
-
-#
 # Completion styling
 zstyle ':completion:*' matcher-list 'm:{a-z}={A-Za-z}'
 zstyle ':completion:*' list-colors "${(s.:.)LS_COLORS}"
@@ -305,5 +292,42 @@ if [ ! -z "$(whence zoxide)" ]; then
     eval "$(zoxide init --cmd cd zsh)"
 fi
 
-# To customize prompt, run `p10k configure` or edit ~/.p10k.zsh.
-[[ ! -f ~/.p10k.zsh ]] || source ~/.p10k.zsh
+# git prompt for when OMP isn't present
+git_prompt() {
+    git branch > /dev/null 2>&1
+    if [[ $? -eq 0 ]]; then
+        # we're in a git branch
+        branch=`git branch 2> /dev/null | cut -d" " -f2 | tr -d '\n' `
+        git status | grep "nothing to commit" > /dev/null 2>&1
+        if [[ $? -eq 0 ]]; then
+            # clean repository
+            colour='green'
+            sep=('[' ']')
+        else
+            # stuff to commit
+            colour='red'
+            sep=('{' '}')
+        fi
+        printf " %%F{$colour}$sep[1]$branch$sep[2]%%f"
+    else
+        # not in a git repo
+    fi
+}
+
+# Initialize OMP if it's present, and welcome, otherwise set up a nice custom
+# shell prompt
+#
+if [[ -x "$(which oh-my-posh)" && "$TERM_PROGRAM" != "Apple_Terminal" ]]; then
+    eval "$(oh-my-posh init zsh --config $HOME/.config/ohmyposh/base.toml)"
+else
+    # We don't have OMP.  Set up a custom shell prompt.
+    # 
+    setopt PROMPT_SUBST
+
+    if [[ `echotc Co` -ge 8 ]]; then
+        # there are 8 or more colours to work with
+        PS1=$'\n%B%n%b@%B%F{green}%M%f%b:%F{cyan}%~%f\n%B%F{yellow}%*%f%b$(git_prompt) (%h) %# '
+    else
+        PS1=$'\n%B%n%b@%B%M%b:%~\n%B%*%b$(git_prompt) (%h) %# '
+    fi
+fi
